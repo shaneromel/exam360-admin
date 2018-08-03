@@ -1,0 +1,7 @@
+<nb-card>
+  <nb-card-header>Manage PINs</nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="deletePin($event)" (createConfirm)="addPin($event)" (userRowSelect)="userSelected($event)" >
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

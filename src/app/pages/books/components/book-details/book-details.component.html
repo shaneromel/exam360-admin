@@ -1,0 +1,130 @@
+<nb-tabset>
+    <nb-tab tabTitle="General Details">
+          <div style="margin-top: 10px;" class="col-md-2 offset-md-10">
+              <div class="input-group mb-3">
+                  <input type="number" [(ngModel)]="stock" class="form-control" placeholder="Stock">
+                  <div class="input-group-append">
+                    <button (click)="setStock()" class="btn btn-outline-secondary" type="button">Set</button>
+                  </div>
+              </div>
+          </div>
+          <div style="margin-bottom: 10px;" class="col-md-4 offset-md-4">
+            <img [src]="image?.url" class="img-fluid main-image">
+            <div style="margin-top: 10px; margin-bottom: 10px;" class="progress">
+                <div [ngClass]="image.progressBarClass" [ngStyle]="{'width':image.uploadPercent+'%'}" role="progressbar" aria-valuemax="100">{{image.uploadPercent | number:'0.0-0'}}%</div>
+            </div>
+            <input type="file" (change)="uploadMainImage($event)">
+          </div>
+          <form (ngSubmit)="setGeneralDetails()">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Title:</label>
+                    <input class="form-control" type="text" placeholder="Title" [(ngModel)]="title" name="title">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Author: </label>
+                    <input class="form-control" type="text" placeholder="Author" [(ngModel)]="author" name="author">
+                  </div>
+                  <div class="form-group col-md-6">
+                      <label>Category: </label>
+                      <select [(ngModel)]="category" name="category" class="form-control">
+                        <option *ngFor="let c of categories" value="{{c.id}}" >{{c.title}}</option>
+                      </select>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Publication: </label>
+                    <input class="form-control" placeholder="Publication" name="publication" [(ngModel)]="publication">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Price: </label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="price">&#8377;</span>
+                        </div>
+                        <input type="number" name="price" [(ngModel)]="price" class="form-control" placeholder="Price" aria-describedby="price">
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                      <label>Offer Price: </label>
+                      <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="price_offer">&#8377;</span>
+                          </div>
+                          <input type="number" name="price_offer" [(ngModel)]="priceOffer" class="form-control" placeholder="Offer Price" aria-describedby="price_offer">
+                      </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Type: </label>
+                    <select [(ngModel)]="type" name="type" class="form-control">
+                        <option value="1">Hard copy and Soft copy</option>
+                        <option value="2">Soft copy only</option>
+                        <option value="3">Hard copy only</option>
+                    </select>
+                  </div>
+                  <div *ngIf="type!=3" class="form-group col-md-6">
+                    <label>Soft copy: </label>
+                    <span style="margin-bottom: 5px; display:block;">View the soft copy <a target="blank" href="{{softCopy?.url}}">here</a></span>
+                    <div style="margin-bottom: 10px;" class="progress">
+                      <div [ngClass]="softCopy.progressBarClass" [ngStyle]="{'width':softCopy.uploadPercent+'%'}" role="progressbar" aria-valuemax="100">{{softCopy.uploadPercent | number:'0.0-0'}}%</div>
+                    </div>
+                    <input (change)="uploadSoftCopy($event)" type="file">
+                  </div>
+                  <div class="form-group col-md-12">
+                    <label>Description: </label>
+                    <textarea class="form-control" [(ngModel)]="description" name="description"></textarea>
+                  </div>
+                  <div class="form-group col-md-6">
+                      <nb-checkbox name="exclusive" [(ngModel)]="exam360" status="success" class="col-sm-4">Exam 360 exclusive</nb-checkbox>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <nb-checkbox name="special" [(ngModel)]="special" status="success" class="col-sm-4">Special book</nb-checkbox>
+                  </div>
+            </div>
+            <button *ngIf="title && author && category && publication && price && priceOffer && type && description; else disabled" type="submit" style="margin-bottom: 20px;" class="btn btn-success btn-block">Submit</button>
+            <ng-template  #disabled>
+              <button style="margin-bottom: 20px;" class="btn btn-success btn-block disabled" type="button">Submit</button>
+            </ng-template>
+            
+        </form>
+    </nb-tab>
+    <nb-tab tabTitle="Images">
+        <div *ngFor="let img of images; index as i" class="form-group">
+            <button style="float: right;" (click)="removeImage(i)" class="btn btn-danger"><span style="font-size: 20px;" class="nb-trash"></span></button>
+            <div class="col-md-4 offset-md-4">
+                <img [src]="img.image" style="max-height: 300px;" class="img-fluid">
+            </div>
+            <div style="margin-top: 10px; margin-bottom: 10px;" class="progress">
+                <div [ngClass]="img.progressBarClass" [ngStyle]="{'width':img.uploadPercent+'%'}" role="progressbar" aria-valuemax="100">{{img.uploadPercent | number:'0.0-0'}}%</div>
+            </div>
+            <input (change)="uploadImage($event, i)" type="file">
+        </div>
+        <button type="button" (click)="addImage()" style="margin-bottom: 20px;" class="btn btn-warning btn-block"><span class="nb-plus"></span></button>
+        <button type="button" class="btn btn-success btn-block" style="margin-bottom: 20px;" (click)="saveImages()">Submit</button>
+    </nb-tab>
+    <nb-tab tabTitle="Shipping charges">
+      <form (ngSubmit)="setShippingCharges()" >
+        <div class="form-group">
+          <label>Regular Delivery</label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">&#8377;</span>
+            </div>
+            <input class="form-control" type="number" [(ngModel)]="shippingCharges.regular" name="regular" placeholder="Regular Delivery">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Fast Delivery</label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">&#8377;</span>
+            </div>
+            <input class="form-control" type="number" [(ngModel)]="shippingCharges.fast_delivery" name="fast" placeholder="Fast Delivery">
+          </div>
+        </div>
+        <button style="margin-bottom: 20px;" *ngIf="shippingCharges.regular && shippingCharges.fast_delivery; else disabled" class="btn btn-success btn-block">Submit</button>
+        <ng-template #disabled>
+          <button style="margin-bottom: 20px;" class="btn btn-success btn-block disabled" type="button">Submit</button>
+        </ng-template>
+      </form>
+    </nb-tab>
+</nb-tabset>

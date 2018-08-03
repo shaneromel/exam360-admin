@@ -1,0 +1,6 @@
+<nb-card>
+  <nb-card-header>Manage Categories</nb-card-header>
+  <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (editConfirm)="editCategory($event)" (deleteConfirm)="deleteCategory($event)" (createConfirm)="createCategory($event)" (userRowSelect)="bookSelected($event)"></ng2-smart-table>
+  </nb-card-body>
+</nb-card>

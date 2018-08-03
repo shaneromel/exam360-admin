@@ -1,0 +1,11 @@
+<nb-card>
+  <nb-card-header>
+    Smart Table
+  </nb-card-header>
+
+  <nb-card-body>
+    <ngx-user-details *ngIf="isSelected" [user]="user" ></ngx-user-details>
+    <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)" (createConfirm)="createUser($event)" (userRowSelect)="userSelected($event)" >
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

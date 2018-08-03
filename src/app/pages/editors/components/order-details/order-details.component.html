@@ -1,0 +1,70 @@
+<nb-tabset>
+    <nb-tab tabTitle="Books">
+      <div style="padding: 20px;" class="col-md-12">
+        <table>
+          <thead>
+            <tr>
+              <th>Book ID</th>
+              <th>Book Name</th>
+              <th>Quantity</th>
+              <th>Price(&#8377;)</th>
+              <th>Offer Price(&#8377;)</th>
+              <th>Delivery Charge(&#8377;)</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of order.cart">
+              <td>{{item.book.id}}</td>
+              <td>{{item.book.title}}</td>
+              <td>{{item.quantity}}</td>
+              <td>{{item.book.price}}</td>
+              <td>{{item.book.price_offer}}</td>
+              <td>{{item.deliveryPrice}}</td>
+              <td>{{item.typeName}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </nb-tab>
+    <nb-tab tabTitle="Delivery Details">
+      <div class="col-md-12">
+          <table>
+              <tr>
+                <td>Name: </td>
+                <td>{{user?.first_name}} {{user?.last_name}}</td>
+              </tr>
+              <tr>
+                <td>Address: </td>
+                <td>{{order.address}}</td>
+              </tr>
+          </table>
+      </div>
+    </nb-tab>
+    <nb-tab tabTitle="User Details">
+      <div class="col-md-6">
+        <table>
+          <tr>
+            <td>First Name: </td>
+            <td>{{user?.first_name}}</td>
+          </tr>
+          <tr>
+            <td>Last Name: </td>
+            <td>{{user?.last_name}}</td>
+          </tr>
+          <tr>
+            <td>Email: </td>
+            <td>{{user?.email}}</td>
+          </tr>
+          <tr>
+            <td>Fax: </td>
+            <td>{{user?.fax ? user?.fax : 'No fax added yet.'}}</td>
+          </tr>
+          <tr>
+            <td>Phone Number: </td>
+            <td>{{user?.phone}}</td>
+          </tr>
+        </table>
+      </div>
+    </nb-tab>
+</nb-tabset>

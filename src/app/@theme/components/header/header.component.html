@@ -1,0 +1,25 @@
+<div class="header-container"
+     [class.left]="position === 'normal'"
+     [class.right]="position === 'inverse'">
+  <div class="logo-containter">
+    <a (click)="toggleSidebar()" href="#" class="navigation"><i class="nb-menu"></i></a>
+    <div class="logo" (click)="goToHome()">Exam <span>360</span></div>
+  </div>
+  <ngx-theme-switcher></ngx-theme-switcher>
+</div>
+
+<div class="header-container">
+  <ngx-layout-direction-switcher></ngx-layout-direction-switcher>
+  <nb-actions
+    size="medium"
+    [class.right]="position === 'normal'"
+    [class.left]="position === 'inverse'">
+    <nb-action icon="nb-gear" class="toggle-layout" (click)="toggleSettings()"></nb-action>
+    <nb-action>
+      <button (click)="logout()" class="btn btn-hero-success">Logout</button>
+    </nb-action>
+    <nb-action *nbIsGranted="['view', 'user']" >
+      <nb-user [name]="user?.email"></nb-user>
+    </nb-action>
+  </nb-actions>
+</div>

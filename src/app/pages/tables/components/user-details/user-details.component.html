@@ -1,0 +1,40 @@
+<div class="container-fluid">
+  <h2>User Details</h2>
+  <hr>
+  <div class="col-md-4">
+    <table>
+        <tr>
+          <td>First Name:</td>
+          <td>{{user?.first_name}}</td>
+        </tr>
+        <tr>
+          <td>Last Name:</td>
+          <td>{{user?.last_name}}</td>
+        </tr>
+        <tr>
+          <td>Email: </td>
+          <td>{{user?.email}}</td>
+        </tr>
+        <tr>
+          <td>Phone: </td>
+          <td>{{user?.phone}}</td>
+        </tr>
+        <tr>
+          <td>Fax: </td>
+          <td>{{user?.fax}}</td>
+        </tr>
+        <tr>
+          <td>Address 1: </td>
+          <td>{{user?.address1}}</td>
+        </tr>
+        <tr>
+          <td>Address 2: </td>
+          <td>{{user?.address2 ? user.address2 : 'No address added'}}</td>
+        </tr>
+        <tr>
+          <td>Address 3: </td>
+          <td>{{user?.address3 ? user.address3 : 'No address added'}}</td>
+        </tr>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<nb-card>
+  <nb-card-header>Manage Books</nb-card-header>
+  <nb-card-body>
+    <ngx-book-details *ngIf="isSelected" [book]="book" ></ngx-book-details>
+    <ng2-smart-table [settings]="settings" [source]="source" (editConfirm)="editBook($event)" (deleteConfirm)="onDeleteConfirm($event)" (createConfirm)="createUser($event)" (userRowSelect)="bookSelected($event)"></ng2-smart-table>
+  </nb-card-body>
+</nb-card>
