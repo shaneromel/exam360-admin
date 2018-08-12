@@ -25,7 +25,7 @@ export class AddBookComponent implements OnInit {
   }
   title:string;
   author:string;
-  category:string;
+  category:string[];
   publication:string;
   price:string;
   priceOffer:string;

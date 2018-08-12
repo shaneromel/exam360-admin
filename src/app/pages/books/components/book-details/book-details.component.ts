@@ -15,7 +15,7 @@ export class BookDetailsComponent implements OnInit {
   title:string;
   author:string;
   categories:any[];
-  category:string;
+  category:string[];
   exam360:boolean;
   publication:string;
   price:number;

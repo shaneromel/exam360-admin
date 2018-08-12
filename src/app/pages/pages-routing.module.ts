@@ -33,6 +33,9 @@ const routes: Routes = [{
   },{
     path:"profile",
     loadChildren:"./profile/profile.module#ProfileModule"
+  },{
+    path:"who-we-are",
+    loadChildren:"./who-we-are/who-we-are.module#WhoWeAreModule"
   }, {
     path: '',
     redirectTo: 'dashboard',

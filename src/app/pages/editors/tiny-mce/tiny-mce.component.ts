@@ -31,29 +31,6 @@ export class TinyMCEComponent {
         type: 'string',
         editable:false
       },
-      status: {
-        title: 'Status',
-        type: 'string',
-        editor:{
-          type:"list",
-          config:{
-            list:[
-              {
-                value:"Waiting for approval",
-                title:"Waiting for approval"
-              },
-              {
-                value:"Processing",
-                title:"Processing"
-              },
-              {
-                value:"Delivered",
-                title:"Delivered"
-              }
-            ]
-          }
-        }
-      },
       total: {
         title: 'Total(₹)',
         type: 'number',
@@ -69,10 +46,12 @@ export class TinyMCEComponent {
       add:false
     }
   };
-  orders:any[];
+  shippedOrders:any[];
   source:LocalDataSource=new LocalDataSource();
   isSelected:boolean;
   order:any;
+  unshippedSource:LocalDataSource=new LocalDataSource();
+  unshippedOrders:any[];
 
   constructor(private orderService:OrderService, private toaster:ToastrService){
     this.isSelected=false;
@@ -80,13 +59,20 @@ export class TinyMCEComponent {
 
   ngOnInit(){
     this.orderService.getOrders().subscribe(orders=>{
-      this.orders=orders;
-      this.orders=this.orders.map(a=>{
+      this.shippedOrders=orders.filter(a=>a.status==="Shipped");
+      this.shippedOrders=this.shippedOrders.map(a=>{
         var date=new Date(a.timestamp);
         a.date=date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
         return a;
       })
-      this.source.load(this.orders);
+      this.unshippedOrders=orders.filter(a=>a.status!="Shipped");
+      this.unshippedOrders=this.unshippedOrders.map(a=>{
+        var date=new Date(a.timestamp);
+        a.date=date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
+        return a;
+      })
+      this.unshippedSource.load(this.unshippedOrders);
+      this.source.load(this.shippedOrders);
     })
   }
 

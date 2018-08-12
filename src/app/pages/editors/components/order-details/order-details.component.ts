@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { BookService } from '../../../../services/book.service';
 import { UserService } from '../../../../services/user.service';
+import { ToastrService } from '../../../../../../node_modules/ngx-toastr';
+import { OrderService } from '../../../../services/order.service';
 
 @Component({
   selector: 'ngx-order-details',
@@ -11,14 +13,83 @@ export class OrderDetailsComponent implements OnInit {
   @Input() order:any;
   books:any;
   user:any;
+  courier:string;
+  orderConfirm:string;
+  trackingNumber:string;
+  courierName:string;
+  webLink:string;
 
-  constructor(private bookService:BookService, private userService:UserService) { }
+  couriers=[
+    {
+      title:"INDIAN POST",
+      link:"https://www.indiapost.gov.in/VAS/Pages/IndiaPosthome.aspx"
+    },
+    {
+      title:"Trackon Courier",
+      link:"http://trackoncourier.com/"
+    },
+    {
+      title:"Fedex",
+      link:"https://www.fedex.com/in/index.html"
+    },
+    {
+      title:"Gati",
+      link:"https://www.gati.com/track-by-docket/"
+    },
+    {
+      title:"Delhivery",
+      link:"https://www.delhivery.com/"
+    },
+    {
+      title:"First Flight",
+      link:"http://www.firstflight.net/"
+    },
+    {
+      title:"Blue Dart",
+      link:"https://www.bluedart.com/"
+    },
+    {
+      title:"Go Javas",
+      link:"http://gojavas.com/docket_details.php?pop=docno&docno"
+    },
+    {
+      title:"DTDC",
+      link:"http://www.dtdc.in/"
+    },
+    {
+      title:"On Dot Couriers & Cargo Ltd",
+      link:"http://www.ondot.co/"
+    },
+    {
+      title:"Professional Couriers",
+      link:"http://www.professionalcouriers.com/"
+    },
+    {
+      title:"Overnight Express",
+      link:"Not available"
+    },
+    {
+      title:"The Professional Courier Services",
+      link:"http://www.tpcindia.com/"
+    },
+    {
+      title:"Aramex",
+      link:"https://www.aramex.com/"
+    },
+    {
+      title:"DHL Courier",
+      link:"Not available"
+    }
+  ];
+
+  constructor(private bookService:BookService, private userService:UserService, private toaster:ToastrService, private orderService:OrderService) { }
 
   ngOnInit() {
   }
 
   ngOnChanges(){
     if(this.order){
+      console.log(this.order)
       this.order.cart=this.order.cart.map(a=>{
         switch(a.type){
           case 1:
@@ -40,5 +111,46 @@ export class OrderDetailsComponent implements OnInit {
       })
     }
   }
+
+  confirmOrder(){
+    if(this.courier==="others"){
+      if(this.trackingNumber && this.courierName){
+        var data={
+          courier_name:this.courierName,
+          tracking_no:this.trackingNumber,
+          webLink:this.webLink,
+          status:"Shipped"
+        }
+        this.orderService.updateOrder(this.order.id, data).then(()=>{
+          this.toaster.success("Order successfully shipped!");
+        }).catch(err=>{
+          this.toaster.error(err.message);
+        })
+      }else{
+        if(this.trackingNumber){
+          this.toaster.error("Courier name missing.")
+        }else{
+          this.toaster.error("Tracking number missing.")
+        }
+      }
+    }else{
+      var courier=this.couriers[parseInt(this.courier)];
+      var data={
+        courier_name:courier.title,
+        tracking_no:this.trackingNumber,
+        webLink:courier.link,
+        status:"Shipped"
+      }
+
+      this.orderService.updateOrder(this.order.id, data).then(()=>{
+        this.toaster.success("Order successfully shipped!")
+      }).catch(err=>{
+        this.toaster.error(err.message);
+      })
+
+    }
+  }
+
+  sendCancelMessage(){}
 
 }

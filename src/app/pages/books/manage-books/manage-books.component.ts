@@ -120,4 +120,14 @@ export class ManageBooksComponent implements OnInit {
     })
   }
 
+  deleteBook(event){
+    if(window.confirm("Are you sure you want to delete "+event.data.title+"?")){
+      this.bookService.deleteBook(event.data.id).then(()=>{
+        this.toaster.success("Book successfully deleted!")
+      }).catch(err=>{
+        this.toaster.error(err.message);
+      })
+    }
+  }
+
 }

@@ -41,7 +41,8 @@ export class ThemeSwitcherListComponent {
   constructor(
     private themeService: NbThemeService,
     private analyticsService: AnalyticsService,
-  ) {}
+  ) {
+  }
 
   onToggleTheme(themeKey: string) {
     this.themeService.changeTheme(themeKey);

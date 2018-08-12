@@ -66,6 +66,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ]
   },
   {
+    title:"Who we are",
+    icon:"nb-person",
+    children:[
+      {
+        title:"About Us",
+        link:"/pages/who-we-are/about-us"
+      }
+    ]
+  },
+  {
     title:"Profile",
     icon:"nb-person",
     children:[

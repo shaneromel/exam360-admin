@@ -35,4 +35,8 @@ export class BookService {
     return this.afs.collection("store").add(data);
   }
 
+  deleteBook(id:string){
+    return this.afs.doc("store/"+id).delete();
+  }
+
 }

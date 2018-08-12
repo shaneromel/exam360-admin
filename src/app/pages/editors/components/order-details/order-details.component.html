@@ -15,7 +15,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let item of order.cart">
-              <td>{{item.book.id}}</td>
+              <td>{{item.book_id}}</td>
               <td>{{item.book.title}}</td>
               <td>{{item.quantity}}</td>
               <td>{{item.book.price}}</td>
@@ -27,18 +27,66 @@
         </table>
       </div>
     </nb-tab>
-    <nb-tab tabTitle="Delivery Details">
-      <div class="col-md-12">
-          <table>
-              <tr>
-                <td>Name: </td>
-                <td>{{user?.first_name}} {{user?.last_name}}</td>
-              </tr>
-              <tr>
-                <td>Address: </td>
-                <td>{{order.address}}</td>
-              </tr>
-          </table>
+    <nb-tab *ngIf="order?.status!='Shipped'" tabTitle="Confirm Order">
+      <div style="padding: 20px;" class="container">
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="form-group">
+                      <label>Confirm Order: </label>
+                      <select class="form-control" name="confirm" [(ngModel)]="orderConfirm">
+                        <option value="Confirm" >Confirm</option>
+                        <option value="Cancel">Cancel</option>
+                      </select>
+                  </div>
+              </div>
+          </div>
+
+          <form (ngSubmit)="sendCancelMessage()" *ngIf="orderConfirm==='Cancel'">
+            <div class="form-group">
+              <label>Cause: </label>
+              <select name="Cause" class="form-control" [(ngModel)]="cause" >
+                <option>Out of Stock</option>
+                <option>Non-Traceable Address</option>
+                <option>Public holiday/Strike</option>
+                <option>Courier partner cannot reach</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Message: </label>
+              <textarea class="form-control" [(ngModel)]="message" name="Message"></textarea>
+            </div>
+            <button *ngIf="cause && message; else disable" class="btn btn-hero-success btn-block">Submit</button>
+            <ng-template #disable>
+              <button  type="button" class="btn btn-hero-success btn-block disabled">Submit</button> 
+            </ng-template>
+          </form>
+
+          <form (ngSubmit)="confirmOrder()" *ngIf="orderConfirm==='Confirm'">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Courier Name: </label>
+                    <select class="form-control" [(ngModel)]="courier" name="courier">
+                      <option *ngFor="let c of couriers; index as i" value="{{i}}">{{c.title}}</option>
+                      <option value="others">Others</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Tracking Number: </label>
+                  <input class="form-control" type="text" name="tracking-no" placeholder="Tracking Number" [(ngModel)]="trackingNumber">
+                </div>
+                <ng-container *ngIf="courier==='others'" > 
+                  <div class="form-group col-md-6">
+                    <label>Name of the courier: </label>
+                    <input class="form-control" name="courierName" placeholder="Name of the courier" [(ngModel)]="courierName">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Website Link: </label>
+                    <input class="form-control" name="link" [(ngModel)]="webLink" placeholder="Website Link">
+                  </div>
+                </ng-container>
+            </div>
+            <button class="btn btn-hero-success btn-block">Submit</button>
+          </form>
       </div>
     </nb-tab>
     <nb-tab tabTitle="User Details">
@@ -57,12 +105,66 @@
             <td>{{user?.email}}</td>
           </tr>
           <tr>
-            <td>Fax: </td>
-            <td>{{user?.fax ? user?.fax : 'No fax added yet.'}}</td>
-          </tr>
-          <tr>
             <td>Phone Number: </td>
             <td>{{user?.phone}}</td>
+          </tr>
+        </table>
+      </div>
+    </nb-tab>
+    <nb-tab tabTitle="Address">
+      <div class="col-md-6">
+        <table>
+          <tr>
+            <td>Name: </td>
+            <td>{{order?.address.name}}</td>
+          </tr>
+          <tr>
+            <td>C/O: </td>
+            <td>{{order?.address.co}}</td>
+          </tr>
+          <tr>
+            <td>House, Flat, Building Name /No: </td>
+            <td>{{order?.address.house_no}}</td>
+          </tr>
+          <tr *ngIf="order?.address.line2" >
+            <td>Address Line 2: </td>
+            <td>{{order?.address.line2}}</td>
+          </tr>
+          <tr *ngIf="order?.address.locality" >
+            <td>Locality / Village: </td>
+            <td>{{order?.address.locality}}</td>
+          </tr>
+          <tr>
+            <td>City/Town/ Village: </td>
+            <td>{{order?.address.city}}</td>
+          </tr>
+          <tr>
+            <td>District: </td>
+            <td>{{order?.address.district}}</td>
+          </tr>
+          <tr>
+            <td>State:</td>
+            <td>{{order?.address.state}}</td>
+          </tr>
+          <tr>
+            <td>Landmark: </td>
+            <td>{{order?.address.landmark}}</td>
+          </tr>
+          <tr>
+            <td>Pin Code:</td>
+            <td>{{order?.address.pin}}</td>
+          </tr>
+          <tr   *ngIf="order?.address.post_office" >
+            <td>Nearest Post Office: </td>
+            <td>{{order?.address.post_office}}</td>
+          </tr>
+          <tr>
+            <td>Contact No. : </td>
+            <td>{{order?.address.contact_no}}</td>
+          </tr>
+          <tr *ngIf="order?.address.alternate_no" >
+            <td>Alternative No. : </td>
+            <td>{{order?.address.alternate_no}}</td>
           </tr>
         </table>
       </div>
