@@ -1,3 +1,7 @@
-<p>
-  about-us works!
-</p>
+<nb-card>
+  <nb-card-header>Introduction</nb-card-header>
+  <nb-card-body>
+    <div [(ngModel)]="aboutUs" [froalaEditor]></div>
+    <button (click)="updateIntro()" style="margin-top: 10px;" class="btn btn-hero-success btn-block">Submit</button>
+  </nb-card-body>
+</nb-card>

@@ -1,0 +1,32 @@
+<nb-card>
+  <nb-card-header>What we do</nb-card-header>
+  <nb-card-body>
+    <form (ngSubmit)="updateAboutUs()" >
+      <div class="form-group">
+        <label>Free Shipping: </label>
+        <textarea class="form-control" [(ngModel)]="freeShipping" name="freeShipping" ></textarea>
+      </div>
+      <div class="form-group">
+        <label>Gift Cards: </label>
+        <textarea class="form-control" [(ngModel)]="giftCards" name="giftCards" ></textarea>
+      </div>
+      <div class="form-group">
+        <label>Reward Points: </label>
+        <textarea class="form-control" [(ngModel)]="rewardPoints" name="rewardPoints" ></textarea>
+      </div>
+      <div class="form-group">
+        <label>Easy Return: </label>
+        <textarea class="form-control" [(ngModel)]="easyReturn" name="easyReturn"></textarea> 
+      </div>
+      <div class="form-group">
+        <label>Cash on Delivery: </label>
+        <textarea class="form-control" [(ngModel)]="cod" name="cod"></textarea>
+      </div>
+      <div class="form-group">
+        <label>24x7 Customer Support:</label>
+        <textarea class="form-control" [(ngModel)]="customerSupport" name="customerSupport" ></textarea>
+      </div>
+      <button class="btn btn-hero-success btn-block">Submit</button>
+    </form>
+  </nb-card-body>
+</nb-card>
