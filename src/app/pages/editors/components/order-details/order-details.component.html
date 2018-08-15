@@ -27,7 +27,7 @@
         </table>
       </div>
     </nb-tab>
-    <nb-tab *ngIf="order?.status!='Shipped'" tabTitle="Confirm Order">
+    <nb-tab *ngIf="order?.status!='Shipped' && order?.status!='Canceled'" tabTitle="Confirm Order">
       <div style="padding: 20px;" class="container">
           <div class="row">
               <div class="col-md-12">
@@ -167,6 +167,16 @@
             <td>{{order?.address.alternate_no}}</td>
           </tr>
         </table>
+      </div>
+    </nb-tab>
+    <nb-tab *ngIf="order?.status==='Shipped'" tabTitle="Generate Packaging slip">
+      <div style="margin-top: 20px;" class="col-md-6">
+        <p>Click <a target="blank" href="http://localhost/Packaging_Sleep/1.html?id={{order?.id}}">here</a> to view the packaging slip.</p>
+      </div>
+    </nb-tab>
+    <nb-tab *ngIf="order?.status==='Shipped'" tabTitle="Generate Invoice">
+      <div style="margin-top: 20px;" class="col-md-6">
+        <p>Click <a target="blank" href="http://localhost/Invoice/?id={{order?.id}}">here</a> to view the invoice.</p>
       </div>
     </nb-tab>
 </nb-tabset>

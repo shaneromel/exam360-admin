@@ -1,0 +1,42 @@
+<nb-card>
+  <nb-card-header>Our Location</nb-card-header>
+  <nb-card-body>
+    <form (ngSubmit)="updateContactUs()" >
+      <h3>Address</h3>
+      <hr>
+      <div class="form-group">
+        <label>Line 1: </label>
+        <input class="form-control" name="line1" [(ngModel)]="line1" placeholder="Address line 1" >
+      </div>
+      <div class="form-group">
+        <label>Line 2: </label>
+        <input class="form-control" name="line2" [(ngModel)]="line2" placeholder="Address line 2">
+      </div>
+      <div class="form-group">
+        <label>Line 3: </label>
+        <input class="form-control" name="line3" [(ngModel)]="line3" placeholder="Address line 3">
+      </div>
+      <div class="form-group">
+        <label>Line 4: </label>
+        <input class="form-control" name="line4" [(ngModel)]="line4" placeholder="Address line 4">
+      </div>
+      <h3>Telephone</h3>
+      <hr>
+      <div class="form-group">
+        <label>Phone Number: </label>
+        <input type="text" class="form-control" name="phone1" [(ngModel)]="phone1" placeholder="Phone Number">
+      </div>
+      <div class="form-group">
+        <label>Alternate phone number: </label>
+        <input class="form-control" type="text" name="phone2" [(ngModel)]="phone2" placeholder="Alternate phone number">
+      </div>
+      <h3>Opening Times</h3>
+      <hr>
+      <div class="form-group">
+        <label>Opening Times: </label>
+        <input class="form-control" type="text" name="openingTimes" [(ngModel)]="openingTimes" placeholder="Opening Times">
+      </div>
+      <button type="submit" class="btn btn-hero-success btn-block">Submit</button>
+    </form>
+  </nb-card-body>
+</nb-card>

@@ -88,6 +88,12 @@ export class AddBookComponent implements OnInit {
   }
 
   addBook(){
+
+    if(parseInt(this.price)<parseInt(this.priceOffer)){
+      this.toaster.error("Offer price should be less than selling price.");
+      return;
+    }
+
     var data={
       author:this.author,
       category_id:this.category,

@@ -36,6 +36,12 @@ const routes: Routes = [{
   },{
     path:"who-we-are",
     loadChildren:"./who-we-are/who-we-are.module#WhoWeAreModule"
+  },{
+    path:"contact-us",
+    loadChildren:"./contact-us/contact-us.module#ContactUsModule"
+  },{
+    path:"faq",
+    loadChildren:"./faq/faq.module#FaqModule"
   }, {
     path: '',
     redirectTo: 'dashboard',

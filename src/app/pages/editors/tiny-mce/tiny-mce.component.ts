@@ -46,12 +46,65 @@ export class TinyMCEComponent {
       add:false
     }
   };
+
+  canceledSettings = {
+    edit: {
+      editButtonContent: '<i class="nb-edit"></i>',
+      saveButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
+      confirmSave:true
+    },
+    delete: {
+      deleteButtonContent: '<i class="nb-trash"></i>',
+      confirmDelete: true,
+    },
+    columns: {
+      id: {
+        title: 'ID',
+        type: 'string',
+        editable:false
+      },
+      user_uid: {
+        title: 'User UID',
+        type: 'string',
+        editable:false
+      },
+      total: {
+        title: 'Total(₹)',
+        type: 'number',
+        editable:false
+      },
+      date: {
+        title: 'Date(DD/MM/YYYY)',
+        type: 'string',
+        editable:false
+      },
+      refunded:{
+        title:"Refunded",
+        type:"string",
+        editor:{
+          type:"checkbox",
+          config:{
+            true:"Yes",
+            false:"No"
+          }
+        }
+      }
+    },
+    actions:{
+      add:false
+    }
+  };
+
   shippedOrders:any[];
   source:LocalDataSource=new LocalDataSource();
   isSelected:boolean;
   order:any;
   unshippedSource:LocalDataSource=new LocalDataSource();
   unshippedOrders:any[];
+
+  canceledSource:LocalDataSource=new LocalDataSource();
+  canceledOrders:any[];
 
   constructor(private orderService:OrderService, private toaster:ToastrService){
     this.isSelected=false;
@@ -65,14 +118,27 @@ export class TinyMCEComponent {
         a.date=date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
         return a;
       })
-      this.unshippedOrders=orders.filter(a=>a.status!="Shipped");
+
+      this.unshippedOrders=orders.filter(a=>a.status!="Shipped" && a.status!="Canceled");
       this.unshippedOrders=this.unshippedOrders.map(a=>{
         var date=new Date(a.timestamp);
         a.date=date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
         return a;
+      });
+
+      this.canceledOrders=orders.filter(a=>a.status==="Canceled");
+      this.canceledOrders=this.canceledOrders.map(a=>{
+        if(!a.refunded){
+          a.refunded="No";
+        }
+        var date=new Date(a.timestamp);
+        a.date=date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
+        return a;
       })
+
       this.unshippedSource.load(this.unshippedOrders);
       this.source.load(this.shippedOrders);
+      this.canceledSource.load(this.canceledOrders);
     })
   }
 

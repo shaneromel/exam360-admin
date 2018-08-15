@@ -3,6 +3,8 @@ import { BookService } from '../../../../services/book.service';
 import { UserService } from '../../../../services/user.service';
 import { ToastrService } from '../../../../../../node_modules/ngx-toastr';
 import { OrderService } from '../../../../services/order.service';
+import { HttpClient, HttpHeaders } from '../../../../../../node_modules/@angular/common/http';
+import * as globals from '../../../../globals';
 
 @Component({
   selector: 'ngx-order-details',
@@ -18,6 +20,7 @@ export class OrderDetailsComponent implements OnInit {
   trackingNumber:string;
   courierName:string;
   webLink:string;
+  cause:string;
 
   couriers=[
     {
@@ -82,14 +85,13 @@ export class OrderDetailsComponent implements OnInit {
     }
   ];
 
-  constructor(private bookService:BookService, private userService:UserService, private toaster:ToastrService, private orderService:OrderService) { }
+  constructor(private bookService:BookService, private userService:UserService, private toaster:ToastrService, private orderService:OrderService, private http:HttpClient) { }
 
   ngOnInit() {
   }
 
   ngOnChanges(){
     if(this.order){
-      console.log(this.order)
       this.order.cart=this.order.cart.map(a=>{
         switch(a.type){
           case 1:
@@ -104,10 +106,9 @@ export class OrderDetailsComponent implements OnInit {
 
         return a;
       })
-      console.log(this.order);
+
       this.userService.getUserByUid(this.order.user_uid).subscribe(user=>{
         this.user=user;
-        console.log(user);
       })
     }
   }
@@ -122,7 +123,14 @@ export class OrderDetailsComponent implements OnInit {
           status:"Shipped"
         }
         this.orderService.updateOrder(this.order.id, data).then(()=>{
-          this.toaster.success("Order successfully shipped!");
+          this.http.get<any>(globals.REST_API+"/confirm-mail/"+this.order.id).subscribe(response=>{
+            if(response==="success"){
+              this.toaster.success("Order successfully shipped!");
+            }else{
+              this.toaster.error("There was some problem sending the email to the user.");
+            }
+          })
+          
         }).catch(err=>{
           this.toaster.error(err.message);
         })
@@ -143,14 +151,32 @@ export class OrderDetailsComponent implements OnInit {
       }
 
       this.orderService.updateOrder(this.order.id, data).then(()=>{
-        this.toaster.success("Order successfully shipped!")
+        this.http.get<any>(globals.REST_API+"/confirm-mail/"+this.order.id).subscribe(response=>{
+          if(response==="success"){
+            this.toaster.success("Order successfully shipped!");
+          }else{
+            this.toaster.error("There was some problem sending the email to the user.");
+          }
+        })
       }).catch(err=>{
         this.toaster.error(err.message);
-      })
+      });
 
     }
   }
 
-  sendCancelMessage(){}
+  sendCancelMessage(){
+    this.http.post<any>(globals.REST_API+"/cancel-mail/"+this.order.id,{cause:this.cause}).subscribe(response=>{
+      if(response==="success"){
+        this.orderService.updateOrder(this.order.id, {status:"Canceled"}).then(()=>{
+          this.toaster.success("Order successfully canceled!")
+        }).catch(err=>{
+          this.toaster.error(err.message);
+        });
+      }else{
+        this.toaster.error("There was some error while cancelling the order. Please try again.");
+      }
+    });
+  }
 
 }

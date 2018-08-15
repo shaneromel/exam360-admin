@@ -159,6 +159,12 @@ export class BookDetailsComponent implements OnInit {
   }
 
   setGeneralDetails(){
+
+    if(this.price<this.priceOffer){
+      this.toaster.error("Offer price should be lesser than selling price.");
+      return;
+    }
+
     var data={
       title:this.title,
       category_id:this.category,

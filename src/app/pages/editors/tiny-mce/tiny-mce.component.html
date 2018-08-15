@@ -10,6 +10,11 @@
                         <ng2-smart-table [settings]="settings" [source]="unshippedSource" (deleteConfirm)="deleteOrder($event)" (editConfirm)="editOrder($event)" (createConfirm)="createUser($event)" (userRowSelect)="orderSelected($event)" >
                             </ng2-smart-table>
                 </nb-tab>
+
+                <nb-tab tabTitle="Canceled">
+                    <ng2-smart-table [settings]="canceledSettings" [source]="canceledSource" (deleteConfirm)="deleteOrder($event)" (editConfirm)="editOrder($event)" (createConfirm)="createUser($event)" (userRowSelect)="orderSelected($event)" >
+                    </ng2-smart-table>
+                </nb-tab>
                 
         </nb-tabset>
         

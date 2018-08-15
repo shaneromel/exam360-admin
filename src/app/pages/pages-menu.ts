@@ -72,6 +72,30 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title:"About Us",
         link:"/pages/who-we-are/about-us"
+      },
+      {
+        title:"What we do",
+        link:"/pages/who-we-are/what-we-do"
+      }
+    ]
+  },
+  {
+    title:"FAQ",
+    icon:"fa fa-question",
+    children:[
+      {
+        title:"Add FAQ",
+        link:"/pages/faq/add-faq"
+      }
+    ]
+  },
+  {
+    title:"Contact Us",
+    icon:"nb-phone",
+    children:[
+      {
+        title:"Our Location",
+        link:"/pages/contact-us/our-location"
       }
     ]
   },
