@@ -1,4 +1,5 @@
 import { NbMenuItem } from '@nebular/theme';
+import { Title } from '../../../node_modules/@angular/platform-browser';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
@@ -23,7 +24,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title:"Books",
-    icon:"nb-tables",
+    icon:"fa fa-book",
     children:[
       {
         title:"Manage Books",
@@ -37,7 +38,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Orders',
-    icon: 'nb-tables',
+    icon: 'fa fa-shopping-cart',
     children: [
       {
         title: 'Manage Orders',
@@ -46,8 +47,8 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
   {
-    title: 'Users',
-    icon: 'nb-tables',
+    title: ' Users',
+    icon: 'fa fa-users',
     children: [
       {
         title: 'Manage Users',
@@ -57,7 +58,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title:"PINs",
-    icon:"nb-tables",
+    icon:"fa fa-map-marker",
     children:[
       {
         title:"Manage PINs",
@@ -86,6 +87,76 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title:"Add FAQ",
         link:"/pages/faq/add-faq"
+      }
+    ]
+  },
+  {
+    title:"Advertise with us",
+    icon:"fab fa-adversal",
+    children:[
+      {
+        title:"Update Advertise with us",
+        link:"/pages/ad/update"
+      }
+    ]
+  },
+  {
+    title:"Become our distributor",
+    icon:"fas fa-globe-asia",
+    children:[
+      {
+        title:"Update become our distributor",
+        link:"/pages/distributor/update"
+      }
+    ]
+  },
+  {
+    title:"Publish with us",
+    icon:"fas fa-atlas",
+    children:[
+      {
+        title:"Update publish with us",
+        link:"/pages/publish/update"
+      }
+    ]
+  },
+  {
+    title:"Sell with us",
+    icon:"fas fa-handshake",
+    children:[
+      {
+        title:"Update sell with us",
+        link:"/pages/sell/update"
+      }
+    ]
+  },
+  {
+    title:"Report Infringment",
+    icon:"fas fa-flag",
+    children:[
+      {
+        title:"Update Report Infringment",
+        link:"/pages/report/update"
+      }
+    ]
+  },
+  {
+    title:"Terms & Conditions",
+    icon:"fa fa-info",
+    children:[
+      {
+        title:"Update Terms & Conditions",
+        link:"/pages/terms/update-terms"
+      }
+    ]
+  },
+  {
+    title:"Privacy Policy",
+    icon:"fa fa-user-secret",
+    children:[
+      {
+        title:"Update Privacy Policy",
+        link:"/pages/privacy-policy/update-privacy-policy"
       }
     ]
   },

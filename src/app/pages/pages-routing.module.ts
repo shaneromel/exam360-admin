@@ -37,11 +37,32 @@ const routes: Routes = [{
     path:"who-we-are",
     loadChildren:"./who-we-are/who-we-are.module#WhoWeAreModule"
   },{
+    path:"ad",
+    loadChildren:"./ad/ad.module#AdModule"
+  },{
     path:"contact-us",
     loadChildren:"./contact-us/contact-us.module#ContactUsModule"
   },{
     path:"faq",
     loadChildren:"./faq/faq.module#FaqModule"
+  },{
+    path:"terms",
+    loadChildren:"./terms/terms.module#TermsModule"
+  },{
+    path:"privacy-policy",
+    loadChildren:"./privacy-policy/privacy-policy.module#PrivacyPolicyModule"
+  },{
+    path:"distributor",
+    loadChildren:"./distributor/distributor.module#DistributorModule"
+  },{
+    path:"publish",
+    loadChildren:"./publish/publish.module#PublishModule"
+  },{
+    path:"sell",
+    loadChildren:"./sell/sell.module#SellModule"
+  },{
+    path:"report",
+    loadChildren:"./report/report.module#ReportModule"
   }, {
     path: '',
     redirectTo: 'dashboard',

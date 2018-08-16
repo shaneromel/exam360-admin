@@ -1,40 +1,204 @@
 <div class="container-fluid">
   <h2>User Details</h2>
   <hr>
-  <div class="col-md-4">
-    <table>
-        <tr>
-          <td>First Name:</td>
-          <td>{{user?.first_name}}</td>
-        </tr>
-        <tr>
-          <td>Last Name:</td>
-          <td>{{user?.last_name}}</td>
-        </tr>
-        <tr>
-          <td>Email: </td>
-          <td>{{user?.email}}</td>
-        </tr>
-        <tr>
-          <td>Phone: </td>
-          <td>{{user?.phone}}</td>
-        </tr>
-        <tr>
-          <td>Fax: </td>
-          <td>{{user?.fax}}</td>
-        </tr>
-        <tr>
-          <td>Address 1: </td>
-          <td>{{user?.address1}}</td>
-        </tr>
-        <tr>
-          <td>Address 2: </td>
-          <td>{{user?.address2 ? user.address2 : 'No address added'}}</td>
-        </tr>
-        <tr>
-          <td>Address 3: </td>
-          <td>{{user?.address3 ? user.address3 : 'No address added'}}</td>
-        </tr>
-    </table>
+  <div class="row">
+    <div class="col-md-4">
+      <table>
+          <tr>
+            <td>First Name:</td>
+            <td>{{user?.first_name}}</td>
+          </tr>
+          <tr>
+            <td>Last Name:</td>
+            <td>{{user?.last_name}}</td>
+          </tr>
+          <tr>
+            <td>Email: </td>
+            <td>{{user?.email}}</td>
+          </tr>
+          <tr>
+            <td>Phone: </td>
+            <td>{{user?.phone}}</td>
+          </tr>
+      </table>
+      <br>
+      <ng-container *ngIf="user?.address1" >
+        <h3>Address 1: </h3>
+        <hr>
+        <table>
+          <tr>
+            <td>Name: </td>
+            <td>{{user?.address1.name}}</td>
+          </tr>
+          <tr *ngIf="user?.address1.co" >
+            <td>C/O: </td>
+            <td>{{user?.address1.co}}</td>
+          </tr>
+          <tr>
+            <td>House, Flat, Building Name /No: </td>
+            <td>{{user?.address1.house_no}}</td>
+          </tr>
+          <tr *ngIf="user?.address1.line2" >
+            <td>Address Line 2: </td>
+            <td>{{user?.address1.line2}}</td>
+          </tr>
+          <tr *ngIf="user?.address1.locality">
+            <td>Locality / Village: </td>
+            <td>{{user?.address1.locality}}</td>
+          </tr>
+          <tr>
+            <td>City/Town/ Village: </td>
+            <td>{{user?.address1.city}}</td>
+          </tr>
+          <tr>
+            <td>District:</td>
+            <td>{{user?.address1.district}}</td>
+          </tr>
+          <tr>
+            <td>State: </td>
+            <td>{{user?.address1.state}}</td>
+          </tr>
+          <tr>
+            <td>Landmark: </td>
+            <td>{{user?.address1.landmark}}</td>
+          </tr>
+          <tr>
+            <td>Pin Code: </td>
+            <td>{{user?.address1.pin}}</td>
+          </tr>
+          <tr *ngIf="user?.address1.post_office" >
+            <td>Nearest Post Office:</td>
+            <td>{{user?.address1.post_office}}</td>
+          </tr>
+          <tr>
+            <td>Contact No. : </td>
+            <td>{{user?.address1.contact_no}}</td>
+          </tr>
+          <tr *ngIf="user?.address1.alternate_no" >
+            <td>Alternative No. : </td>
+            <td>{{user?.address1.alternate_no}}</td>
+          </tr>
+        </table>
+      </ng-container>
+      <br>
+      <ng-container *ngIf="user?.address2">
+        <h3>Address 2: </h3>
+        <hr>
+        <table>
+          <tr>
+            <td>Name: </td>
+            <td>{{user?.address2.name}}</td>
+          </tr>
+          <tr *ngIf="user?.address2.co" >
+            <td>C/O: </td>
+            <td>{{user?.address2.co}}</td>
+          </tr>
+          <tr>
+            <td>House, Flat, Building Name /No: </td>
+            <td>{{user?.address2.house_no}}</td>
+          </tr>
+          <tr *ngIf="user?.address2.line2" >
+            <td>Address Line 2: </td>
+            <td>{{user?.address2.line2}}</td>
+          </tr>
+          <tr *ngIf="user?.address2.locality">
+            <td>Locality / Village: </td>
+            <td>{{user?.address2.locality}}</td>
+          </tr>
+          <tr>
+            <td>City/Town/ Village: </td>
+            <td>{{user?.address2.city}}</td>
+          </tr>
+          <tr>
+            <td>District:</td>
+            <td>{{user?.address2.district}}</td>
+          </tr>
+          <tr>
+            <td>State: </td>
+            <td>{{user?.address2.state}}</td>
+          </tr>
+          <tr>
+            <td>Landmark: </td>
+            <td>{{user?.address2.landmark}}</td>
+          </tr>
+          <tr>
+            <td>Pin Code: </td>
+            <td>{{user?.address2.pin}}</td>
+          </tr>
+          <tr *ngIf="user?.address2.post_office" >
+            <td>Nearest Post Office:</td>
+            <td>{{user?.address2.post_office}}</td>
+          </tr>
+          <tr>
+            <td>Contact No. : </td>
+            <td>{{user?.address2.contact_no}}</td>
+          </tr>
+          <tr *ngIf="user?.address2.alternate_no" >
+            <td>Alternative No. : </td>
+            <td>{{user?.address2.alternate_no}}</td>
+          </tr>
+        </table>
+      </ng-container>
+    </div>
+    <div *ngIf="user?.address3" class="col-md-4 offset-md-2">
+      <ng-container>
+        <h3>Address 3: </h3>
+        <hr>
+        <table>
+          <tr>
+            <td>Name: </td>
+            <td>{{user?.address3.name}}</td>
+          </tr>
+          <tr *ngIf="user?.address3.co" >
+            <td>C/O: </td>
+            <td>{{user?.address3.co}}</td>
+          </tr>
+          <tr>
+            <td>House, Flat, Building Name /No: </td>
+            <td>{{user?.address3.house_no}}</td>
+          </tr>
+          <tr *ngIf="user?.address3.line2" >
+            <td>Address Line 2: </td>
+            <td>{{user?.address3.line2}}</td>
+          </tr>
+          <tr *ngIf="user?.address3.locality">
+            <td>Locality / Village: </td>
+            <td>{{user?.address3.locality}}</td>
+          </tr>
+          <tr>
+            <td>City/Town/ Village: </td>
+            <td>{{user?.address3.city}}</td>
+          </tr>
+          <tr>
+            <td>District:</td>
+            <td>{{user?.address3.district}}</td>
+          </tr>
+          <tr>
+            <td>State: </td>
+            <td>{{user?.address3.state}}</td>
+          </tr>
+          <tr>
+            <td>Landmark: </td>
+            <td>{{user?.address3.landmark}}</td>
+          </tr>
+          <tr>
+            <td>Pin Code: </td>
+            <td>{{user?.address3.pin}}</td>
+          </tr>
+          <tr *ngIf="user?.address3.post_office" >
+            <td>Nearest Post Office:</td>
+            <td>{{user?.address3.post_office}}</td>
+          </tr>
+          <tr>
+            <td>Contact No. : </td>
+            <td>{{user?.address3.contact_no}}</td>
+          </tr>
+          <tr *ngIf="user?.address3.alternate_no" >
+            <td>Alternative No. : </td>
+            <td>{{user?.address3.alternate_no}}</td>
+          </tr>
+        </table>
+      </ng-container>
+    </div>
   </div>
 </div>
