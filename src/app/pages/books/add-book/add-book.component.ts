@@ -4,6 +4,7 @@ import { AngularFireStorage } from '../../../../../node_modules/angularfire2/sto
 import { finalize } from 'rxjs/operators';
 import { BookService } from '../../../services/book.service';
 import { ToastrService } from '../../../../../node_modules/ngx-toastr';
+import {INgxMyDpOptions, IMyDateModel} from 'ngx-mydatepicker';
 
 @Component({
   selector: 'ngx-add-book',
@@ -34,6 +35,15 @@ export class AddBookComponent implements OnInit {
   exam360:boolean;
   special:boolean;
   stock:number;
+  pages:number;
+  edition:string;
+  languages:string[];
+  date:any;
+
+  myOptions: INgxMyDpOptions = {
+    // other options...
+    dateFormat: 'dd.mm.yyyy',
+  };
 
   constructor(private categoryService:CategoryService, private storage:AngularFireStorage, private bookService:BookService, private toaster:ToastrService) { }
 
@@ -87,6 +97,10 @@ export class AddBookComponent implements OnInit {
     .subscribe()
   }
 
+  onDateChanged(event: IMyDateModel): void {
+    this.date=event;
+  }
+
   addBook(){
 
     if(parseInt(this.price)<parseInt(this.priceOffer)){
@@ -113,7 +127,13 @@ export class AddBookComponent implements OnInit {
       special:this.special,
       stock:this.stock,
       title:this.title,
-      type:parseInt(this.type)
+      type:parseInt(this.type),
+      sales:0,
+      rating:0,
+      languages:this.languages,
+      edition:this.edition,
+      pages:this.pages,
+      publication_date:this.date
     }
     
     this.bookService.addBook(data).then(()=>{

@@ -16,7 +16,7 @@
       </div>
       <form (ngSubmit)="addBook()">
         <div class="row">
-            <div class="form-group col-md-6">
+              <div class="form-group col-md-6">
                 <label>Title:</label>
                 <input class="form-control" type="text" placeholder="Title" [(ngModel)]="title" name="title">
               </div>
@@ -31,8 +31,40 @@
                   </select>
               </div>
               <div class="form-group col-md-6">
+                <label>Language: </label>
+                <select multiple name="language" class="form-control" [(ngModel)]="languages">
+                  <option>English</option>
+                  <option>Hindi</option>
+                  <option>Bengali</option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                  <label>Edition: </label>
+                  <input class="form-control" type="text" placeholder="Edition" [(ngModel)]="edition" name="edition">
+              </div>
+              <div class="form-group col-md-6">
+                  <label>Publishing Date: </label>
+                  <div class="input-group">
+                      <input class="form-control" style="float:none" placeholder="Select a date" ngx-mydatepicker name="mydate"
+                              [options]="myOptions" #dp="ngx-mydatepicker" (dateChanged)="onDateChanged($event)"/>
+              
+                      <span class="input-group-btn">
+                          <button type="button" class="btn btn-default" (click)="dp.clearDate()">
+                              <i class="fas fa-times"></i>
+                          </button>
+                          <button type="button" class="btn btn-default" (click)="dp.toggleCalendar()">
+                              <i class="far fa-calendar-alt"></i>
+                          </button>
+                      </span>
+                  </div>
+              </div>
+              <div class="form-group col-md-6">
                 <label>Publication: </label>
                 <input class="form-control" placeholder="Publication" name="publication" [(ngModel)]="publication">
+              </div>
+              <div class="form-group col-md-6">
+                  <label>Number of pages: </label>
+                  <input class="form-control" placeholder="Number of pages" name="publication" type="number" [(ngModel)]="pages">
               </div>
               <div class="form-group col-md-6">
                 <label>Price: </label>
@@ -60,7 +92,7 @@
                     <option value="3">Hard copy only</option>
                 </select>
               </div>
-              <div *ngIf="type!=3" class="form-group col-md-6">
+              <div *ngIf="type!='3'" class="form-group col-md-6">
                 <label>Upload Soft copy: </label>
                 <div style="margin-bottom: 10px;" class="progress">
                   <div [ngClass]="softCopy.progressBarClass" [ngStyle]="{'width':softCopy.uploadPercent+'%'}" role="progressbar" aria-valuemax="100">{{softCopy.uploadPercent | number:'0.0-0'}}%</div>
@@ -78,7 +110,7 @@
                 <nb-checkbox name="special" [(ngModel)]="special" status="success" class="col-sm-4">Special book</nb-checkbox>
               </div>
         </div>
-        <button *ngIf="title && author && category && publication && price && priceOffer && type && description && stock; else disabled" type="submit" style="margin-bottom: 20px;" class="btn btn-success btn-block">Submit</button>
+        <button *ngIf="title && author && category && publication && price && priceOffer && type && description && stock && date && edition && languages; else disabled" type="submit" style="margin-bottom: 20px;" class="btn btn-success btn-block">Submit</button>
         <ng-template  #disabled>
           <button style="margin-bottom: 20px;" class="btn btn-success btn-block disabled" type="button">Submit</button>
         </ng-template>

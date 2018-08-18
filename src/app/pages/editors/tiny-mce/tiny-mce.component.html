@@ -2,17 +2,19 @@
     <nb-card-body>
             <ngx-order-details [order]="order" *ngIf="isSelected" ></ngx-order-details>
         <nb-tabset>
-                <nb-tab tabTitle="Shipped">
-                        <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="deleteOrder($event)" (editConfirm)="editOrder($event)" (createConfirm)="createUser($event)" (userRowSelect)="orderSelected($event)" >
+
+                <nb-tab tabTitle="Unshipped">
+                        <ng2-smart-table [settings]="settings" [source]="unshippedSource" (deleteConfirm)="deleteOrder($event)" (editConfirm)="editOrder($event)" (userRowSelect)="orderSelected($event)" >
                             </ng2-smart-table>
                 </nb-tab>
-                <nb-tab tabTitle="Unshipped">
-                        <ng2-smart-table [settings]="settings" [source]="unshippedSource" (deleteConfirm)="deleteOrder($event)" (editConfirm)="editOrder($event)" (createConfirm)="createUser($event)" (userRowSelect)="orderSelected($event)" >
+
+                <nb-tab tabTitle="Shipped">
+                        <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="deleteOrder($event)" (editConfirm)="editOrder($event)" (userRowSelect)="orderSelected($event)" >
                             </ng2-smart-table>
                 </nb-tab>
 
                 <nb-tab tabTitle="Canceled">
-                    <ng2-smart-table [settings]="canceledSettings" [source]="canceledSource" (deleteConfirm)="deleteOrder($event)" (editConfirm)="editOrder($event)" (createConfirm)="createUser($event)" (userRowSelect)="orderSelected($event)" >
+                    <ng2-smart-table [settings]="canceledSettings" [source]="canceledSource" (deleteConfirm)="deleteOrder($event)" (editConfirm)="editOrder($event)" (userRowSelect)="orderSelected($event)" >
                     </ng2-smart-table>
                 </nb-tab>
                 

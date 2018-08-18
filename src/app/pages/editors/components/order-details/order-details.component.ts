@@ -5,6 +5,7 @@ import { ToastrService } from '../../../../../../node_modules/ngx-toastr';
 import { OrderService } from '../../../../services/order.service';
 import { HttpClient, HttpHeaders } from '../../../../../../node_modules/@angular/common/http';
 import * as globals from '../../../../globals';
+import {INgxMyDpOptions, IMyDateModel} from 'ngx-mydatepicker';
 
 @Component({
   selector: 'ngx-order-details',
@@ -21,6 +22,16 @@ export class OrderDetailsComponent implements OnInit {
   courierName:string;
   webLink:string;
   cause:string;
+
+  myOptions: INgxMyDpOptions = {
+    // other options...
+    dateFormat: 'dd.mm.yyyy',
+  };
+
+  date:any;
+  message:string;
+
+// Initialized to specific date (09.10.2018)
 
   couriers=[
     {
@@ -113,6 +124,11 @@ export class OrderDetailsComponent implements OnInit {
     }
   }
 
+  onDateChanged(event){
+    this.date=event;
+    console.log(this.date);
+  }
+
   confirmOrder(){
     if(this.courier==="others"){
       if(this.trackingNumber && this.courierName){
@@ -120,10 +136,11 @@ export class OrderDetailsComponent implements OnInit {
           courier_name:this.courierName,
           tracking_no:this.trackingNumber,
           webLink:this.webLink,
-          status:"Shipped"
+          status:"Shipped",
+          date:this.date
         }
         this.orderService.updateOrder(this.order.id, data).then(()=>{
-          this.http.get<any>(globals.REST_API+"/confirm-mail/"+this.order.id).subscribe(response=>{
+          this.http.post<any>(globals.REST_API+"/confirm-mail/"+this.order.id, {message:this.message}).subscribe(response=>{
             if(response==="success"){
               this.toaster.success("Order successfully shipped!");
             }else{
@@ -147,7 +164,8 @@ export class OrderDetailsComponent implements OnInit {
         courier_name:courier.title,
         tracking_no:this.trackingNumber,
         webLink:courier.link,
-        status:"Shipped"
+        status:"Shipped",
+        date:this.date
       }
 
       this.orderService.updateOrder(this.order.id, data).then(()=>{

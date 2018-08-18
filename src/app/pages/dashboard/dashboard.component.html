@@ -1,13 +1,35 @@
 <div class="row">
-  <div class="col-xxxl-3 col-md-6" *ngFor="let statusCard of statusCards">
-    <ngx-status-card [title]="statusCard.title"
-                     [type]="statusCard.type">
-      <i [ngClass]="statusCard.iconClass"></i>
+  <div class="col-xxxl-3 col-md-6">
+    <ngx-status-card [title]="usersLength+' Users'"
+                     [type]="'success'">
+      <i [ngClass]="'nb-person'"></i>
     </ngx-status-card>
   </div>
+
+  <div class="col-xxxl-3 col-md-6">
+    <ngx-status-card [title]="booksLength+' Books'"
+                     [type]="'warning'">
+      <i [ngClass]="'fas fa-book'"></i>
+    </ngx-status-card>
+  </div>
+
+  <div class="col-xxxl-3 col-md-6">
+    <ngx-status-card [title]="ordersLength+' Sales'"
+                     [type]="'primary'">
+      <i [ngClass]="'fas fa-shopping-cart'"></i>
+    </ngx-status-card>
+  </div>
+
+  <div class="col-xxxl-3 col-md-6">
+    <ngx-status-card [title]="'₹'+totalEarnings+' Earnings'"
+                     [type]="'danger'">
+      <i [ngClass]="'fas fa-rupee-sign'"></i>
+    </ngx-status-card>
+  </div>
+
 </div>
 
-<div class="row">
+<!-- <div class="row">
   <div class="col-xxxl-3 col-xxl-4 col-lg-5 col-md-6">
     <ngx-temperature></ngx-temperature>
   </div>
@@ -40,4 +62,4 @@
   <div class="col-xxxl-6 col-xxl-12 col-md-7">
     <ngx-security-cameras></ngx-security-cameras>
   </div>
-</div>
+</div> -->

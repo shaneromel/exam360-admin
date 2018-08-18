@@ -4,7 +4,7 @@ import { Component, Input } from '@angular/core';
   selector: 'ngx-status-card',
   styleUrls: ['./status-card.component.scss'],
   template: `
-    <nb-card (click)="on = !on" [ngClass]="{'off': !on}">
+    <nb-card>
       <div class="icon-container">
         <div class="icon {{ type }}">
           <ng-content></ng-content>
@@ -13,7 +13,6 @@ import { Component, Input } from '@angular/core';
 
       <div class="details">
         <div class="title">{{ title }}</div>
-        <div class="status">{{ on ? 'ON' : 'OFF' }}</div>
       </div>
     </nb-card>
   `,

@@ -16,7 +16,7 @@ import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './components/login/login.component';
 import { SharedModule } from './modules/shared/shared.module';
-import { environment } from '../environments/environment';
+import { environment } from '../environments/environment.prod';
 import { AngularFireModule } from 'angularfire2';
 import { AuthGuard } from './guards/auth.guard';
 import { AngularFireAuthModule } from 'angularfire2/auth';

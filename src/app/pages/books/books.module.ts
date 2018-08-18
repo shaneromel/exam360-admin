@@ -7,6 +7,7 @@ import { SharedModule } from '../../modules/shared/shared.module';
 import { BookDetailsComponent } from './components/book-details/book-details.component';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AddBookComponent } from './add-book/add-book.component';
+import { NgxMyDatePickerModule } from 'ngx-mydatepicker';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { AddBookComponent } from './add-book/add-book.component';
     BooksRoutingModule,
     ThemeModule,
     SharedModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    NgxMyDatePickerModule.forRoot()
   ],
   declarations: [ManageBooksComponent, BookDetailsComponent, AddBookComponent]
 })

@@ -1,6 +1,9 @@
 import {Component, OnDestroy} from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 import { takeWhile } from 'rxjs/operators/takeWhile' ;
+import { UserService } from '../../services/user.service';
+import { BookService } from '../../services/book.service';
+import { OrderService } from '../../services/order.service';
 
 interface CardSettings {
   title: string;
@@ -74,12 +77,36 @@ export class DashboardComponent implements OnDestroy {
     ],
   };
 
-  constructor(private themeService: NbThemeService) {
+  usersLength:number;
+  booksLength:number;
+  ordersLength:number;
+  totalEarnings:number;
+
+  constructor(private themeService: NbThemeService, private userService:UserService, private bookService:BookService, private orderService:OrderService) {
     this.themeService.getJsTheme()
       .pipe(takeWhile(() => this.alive))
       .subscribe(theme => {
         this.statusCards = this.statusCardsByThemes[theme.name];
     });
+  }
+
+  ngOnInit(){
+    this.userService.getUsers().subscribe(users=>{
+      this.usersLength=users.length;
+    });
+
+    this.bookService.getBooks().subscribe(books=>{
+      this.booksLength=books.length;
+    });
+
+    this.orderService.getShippedOrders().subscribe(order=>{
+      this.ordersLength=order.length;
+      this.totalEarnings=0;
+      order.forEach(a=>{
+        this.totalEarnings=this.totalEarnings+a.total;
+      })
+    });
+
   }
 
   ngOnDestroy() {

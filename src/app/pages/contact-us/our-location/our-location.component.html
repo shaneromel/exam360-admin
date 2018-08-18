@@ -2,7 +2,7 @@
   <nb-card-header>Our Location</nb-card-header>
   <nb-card-body>
     <form (ngSubmit)="updateContactUs()" >
-      <h3>Address</h3>
+      <h3>Branch Office</h3>
       <hr>
       <div class="form-group">
         <label>Line 1: </label>
@@ -20,21 +20,37 @@
         <label>Line 4: </label>
         <input class="form-control" name="line4" [(ngModel)]="line4" placeholder="Address line 4">
       </div>
+      <h3>Mailing Address</h3>
+      <hr>
+      <div class="form-group">
+        <label>Line 1: </label>
+        <input class="form-control" name="line21" [(ngModel)]="line21" placeholder="Address line 1" >
+      </div>
+      <div class="form-group">
+        <label>Line 2: </label>
+        <input class="form-control" name="line22" [(ngModel)]="line22" placeholder="Address line 2">
+      </div>
+      <div class="form-group">
+        <label>Line 3: </label>
+        <input class="form-control" name="line23" [(ngModel)]="line23" placeholder="Address line 3">
+      </div>
+      <div class="form-group">
+        <label>Line 4: </label>
+        <input class="form-control" name="line24" [(ngModel)]="line24" placeholder="Address line 4">
+      </div>
       <h3>Telephone</h3>
       <hr>
       <div class="form-group">
-        <label>Phone Number: </label>
-        <input type="text" class="form-control" name="phone1" [(ngModel)]="phone1" placeholder="Phone Number">
+        <label>Business: </label>
+        <input type="text" class="form-control" name="phone1" [(ngModel)]="phone1" placeholder="Business">
       </div>
       <div class="form-group">
-        <label>Alternate phone number: </label>
-        <input class="form-control" type="text" name="phone2" [(ngModel)]="phone2" placeholder="Alternate phone number">
+        <label>General: </label>
+        <input class="form-control" type="text" name="phone2" [(ngModel)]="phone2" placeholder="General">
       </div>
-      <h3>Opening Times</h3>
-      <hr>
       <div class="form-group">
-        <label>Opening Times: </label>
-        <input class="form-control" type="text" name="openingTimes" [(ngModel)]="openingTimes" placeholder="Opening Times">
+        <label>Distributor: </label>
+        <input class="form-control" type="text" name="phone3" [(ngModel)]="phone3" placeholder="Distributor">
       </div>
       <button type="submit" class="btn btn-hero-success btn-block">Submit</button>
     </form>

@@ -84,6 +84,26 @@
                     <input class="form-control" name="link" [(ngModel)]="webLink" placeholder="Website Link">
                   </div>
                 </ng-container>
+                <div class="form-group col-md-6">
+                    <label>Shipping date: </label>
+                    <div class="input-group">
+                        <input class="form-control" style="float:none" placeholder="Select a date" ngx-mydatepicker name="mydate"
+                               [(ngModel)]="model" [options]="myOptions" #dp="ngx-mydatepicker" (dateChanged)="onDateChanged($event)"/>
+                
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" (click)="dp.clearDate()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <button type="button" class="btn btn-default" (click)="dp.toggleCalendar()">
+                                <i class="far fa-calendar-alt"></i>
+                            </button>
+                        </span>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Message: </label>
+                    <textarea class="form-control" [(ngModel)]="message" name="message"></textarea>
+                  </div>
             </div>
             <button class="btn btn-hero-success btn-block">Submit</button>
           </form>
@@ -171,12 +191,12 @@
     </nb-tab>
     <nb-tab *ngIf="order?.status==='Shipped'" tabTitle="Generate Packaging slip">
       <div style="margin-top: 20px;" class="col-md-6">
-        <p>Click <a target="blank" href="http://localhost/Packaging_Sleep/1.html?id={{order?.id}}">here</a> to view the packaging slip.</p>
+        <p>Click <a target="blank" href="https://exam360.in/Packaging/1.html?id={{order?.id}}">here</a> to view the packaging slip.</p>
       </div>
     </nb-tab>
     <nb-tab *ngIf="order?.status==='Shipped'" tabTitle="Generate Invoice">
       <div style="margin-top: 20px;" class="col-md-6">
-        <p>Click <a target="blank" href="http://localhost/Invoice/?id={{order?.id}}">here</a> to view the invoice.</p>
+        <p>Click <a target="blank" href="https://exam360.in/Invoice/?id={{order?.id}}">here</a> to view the invoice.</p>
       </div>
     </nb-tab>
 </nb-tabset>

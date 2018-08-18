@@ -15,7 +15,11 @@ export class OurLocationComponent implements OnInit {
   line4:string;
   phone1:string;
   phone2:string;
-  openingTimes:string;
+  phone3:string;
+  line21:string;
+  line22:string;
+  line23:string;
+  line24:string;
 
   constructor(private contactUsService:ContactUsService, private toaster:ToastrService) { }
 
@@ -27,22 +31,32 @@ export class OurLocationComponent implements OnInit {
       this.line4=contactUs.address.line4;
       this.phone1=contactUs.phone.phone1;
       this.phone2=contactUs.phone.phone2;
-      this.openingTimes=contactUs.opening_times;
+      this.phone3=contactUs.phone.phone3;
+      this.line21=contactUs.address2.line1;
+      this.line22=contactUs.address2.line2;
+      this.line23=contactUs.address2.line3;
+      this.line24=contactUs.address2.line4;
     })
   }
 
   updateContactUs(){
     var data={
-      address:{
+      address1:{
         line1:this.line1,
         line2:this.line2,
         line3:this.line3,
         line4:this.line4
       },
-      opening_times:this.openingTimes,
       phone:{
         phone1:this.phone1,
-        phone2:this.phone2
+        phone2:this.phone2,
+        phone3:this.phone3
+      },
+      address2:{
+        line1:this.line21,
+        line2:this.line22,
+        line3:this.line23,
+        line4:this.line24
       }
     }
 

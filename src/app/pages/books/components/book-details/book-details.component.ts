@@ -4,6 +4,7 @@ import { AngularFireStorage } from '../../../../../../node_modules/angularfire2/
 import { finalize } from 'rxjs/operators';
 import { BookService } from '../../../../services/book.service';
 import { ToastrService } from '../../../../../../node_modules/ngx-toastr';
+import {INgxMyDpOptions, IMyDateModel} from 'ngx-mydatepicker';
 
 @Component({
   selector: 'ngx-book-details',
@@ -39,6 +40,17 @@ export class BookDetailsComponent implements OnInit {
     regular:0
   }
   stock:number;
+  edition:string;
+  languages:string[];
+  date:any;
+  pages:number;
+
+  myOptions: INgxMyDpOptions = {
+    // other options...
+    dateFormat: 'dd.mm.yyyy',
+  };
+
+  model: any = { date: { year: 2018, month: 10, day: 9 } };
 
   constructor(private categoryService:CategoryService, private storage:AngularFireStorage, private bookService:BookService, private toaster:ToastrService) {
     this.images=new Array();
@@ -52,14 +64,17 @@ export class BookDetailsComponent implements OnInit {
 
   ngOnChanges(){
     if(this.book){
+      console.log(this.book);
       this.title=this.book.title;
       this.author=this.book.author;
       this.category=this.book.category_id;
       this.exam360=this.book.exam360;
       this.publication=this.book.publication;
+      console.log(this.publication);
       this.price=this.book.price;
       this.priceOffer=this.book.price_offer;
       this.type=this.book.type;
+      console.log(this.book.images);
       this.book.images.forEach(img=>{
         this.images.push({
           image:img,
@@ -74,6 +89,11 @@ export class BookDetailsComponent implements OnInit {
       this.special=this.book.special;
       this.stock=this.book.stock;
       this.softCopy.url=this.book.link;
+      this.languages=this.book.languages;
+      this.edition=this.book.edition;
+      this.date=this.book.publishing_date;
+      this.pages=this.book.pages;
+      this.model=this.book.publishing_date;
     }
   }
 
@@ -101,7 +121,7 @@ export class BookDetailsComponent implements OnInit {
   }
 
   uploadImage(event, index:number){
-    this.image[index].progressBarClass="progress-bar";
+    this.images[index].progressBarClass="progress-bar";
     const file = event.target.files[0];
     const filePath = file.name;
     const fileRef = this.storage.ref(filePath);
@@ -121,6 +141,10 @@ export class BookDetailsComponent implements OnInit {
         } )
      )
     .subscribe()
+  }
+
+  onDateChanged(event: IMyDateModel): void {
+    this.date=event;
   }
 
   uploadMainImage(event) {
@@ -175,8 +199,14 @@ export class BookDetailsComponent implements OnInit {
       price_offer:this.priceOffer,
       publication:this.publication,
       special:this.special,
-      type:parseInt(this.type)
+      type:parseInt(this.type),
+      languages:this.languages,
+      edition:this.edition,
+      pages:this.pages,
+      publishing_date:this.date
     }
+
+    console.log(data);
 
     this.bookService.updateBook(this.book.id, data).then(()=>{
       this.toaster.success("Book successfully updated!");
