@@ -25,10 +25,10 @@ export class OurLocationComponent implements OnInit {
 
   ngOnInit() {
     this.contactUsService.getContactUs().subscribe(contactUs=>{
-      this.line1=contactUs.address.line1;
-      this.line2=contactUs.address.line2;
-      this.line3=contactUs.address.line3;
-      this.line4=contactUs.address.line4;
+      this.line1=contactUs.address1.line1;
+      this.line2=contactUs.address1.line2;
+      this.line3=contactUs.address1.line3;
+      this.line4=contactUs.address1.line4;
       this.phone1=contactUs.phone.phone1;
       this.phone2=contactUs.phone.phone2;
       this.phone3=contactUs.phone.phone3;

@@ -14,7 +14,7 @@ export class AuthService {
   constructor(private http:HttpClient, public afAuth:AngularFireAuth, private afs:AngularFirestore) { }
 
   getToken(email:string, password:string){
-    return this.http.post<any>(globals.REST_API+"/getToken", {email:email, password:password});
+    return this.http.post<any>(globals.REST_API+"/getToken/", {email:email, password:password});
   }
 
   logout(){
