@@ -13,6 +13,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
     group: true,
   },
   {
+    title:"Home Page",
+    icon:"fa fa-home",
+    children:[
+      {
+        title:"Banner",
+        link:"/pages/home/banner"
+      }
+    ]
+  },
+  {
     title:"Categories",
     icon:"nb-tables",
     children:[

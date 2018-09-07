@@ -5,6 +5,7 @@ import { finalize } from 'rxjs/operators';
 import { BookService } from '../../../../services/book.service';
 import { ToastrService } from '../../../../../../node_modules/ngx-toastr';
 import {INgxMyDpOptions, IMyDateModel} from 'ngx-mydatepicker';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'ngx-book-details',
@@ -16,7 +17,7 @@ export class BookDetailsComponent implements OnInit {
   title:string;
   author:string;
   categories:any[];
-  category:string[];
+  category:any[];
   exam360:boolean;
   publication:string;
   price:number;
@@ -49,51 +50,68 @@ export class BookDetailsComponent implements OnInit {
     // other options...
     dateFormat: 'dd.mm.yyyy',
   };
+  sku:string;
+  dhn:string;
+  keywords:string[];
+  isbn:string;
+  genre:string;
 
   model: any = { date: { year: 2018, month: 10, day: 9 } };
 
   constructor(private categoryService:CategoryService, private storage:AngularFireStorage, private bookService:BookService, private toaster:ToastrService) {
     this.images=new Array();
+    this.special=false;
    }
 
   ngOnInit() {
-    this.categoryService.getCategories().subscribe(categories=>{
-      this.categories=categories;
-    })
+    
   }
 
   ngOnChanges(){
     if(this.book){
       console.log(this.book);
-      this.title=this.book.title;
-      this.author=this.book.author;
-      this.category=this.book.category_id;
-      this.exam360=this.book.exam360;
-      this.publication=this.book.publication;
-      console.log(this.publication);
-      this.price=this.book.price;
-      this.priceOffer=this.book.price_offer;
-      this.type=this.book.type;
-      console.log(this.book.images);
-      this.book.images.forEach(img=>{
-        this.images.push({
-          image:img,
-          uploadPercent:0,
-          progressBarClass:"progress-bar"
+      this.categoryService.getCategories().subscribe(categories=>{
+        this.categories=categories;
+        this.category=this.book.category_id.map(a=>{
+          var data=this.categories.filter(c=>{
+            return c.id===a;
+          })[0];
+          return data;
+        });
+  
+        this.title=this.book.title;
+        this.author=this.book.author;
+        
+        this.exam360=this.book.exam360;
+        this.publication=this.book.publication;
+        this.price=this.book.price;
+        this.priceOffer=this.book.price_offer;
+        this.type=this.book.type;
+        this.book.images.forEach(img=>{
+          this.images.push({
+            image:img,
+            uploadPercent:0,
+            progressBarClass:"progress-bar"
+          })
         })
+        this.image.url=this.book.image;
+        this.description=this.book.description;
+        this.shippingCharges.fast_delivery=this.book.shipping_cost.fast_delivery;
+        this.shippingCharges.regular=this.book.shipping_cost.regular;
+        this.special=this.book.special;
+        this.stock=this.book.stock;
+        this.softCopy.url=this.book.link;
+        this.languages=this.book.languages;
+        this.edition=this.book.edition;
+        this.date=this.book.publishing_date;
+        this.pages=this.book.pages;
+        this.model=this.book.publishing_date;
+        this.genre=this.book.genre;
+        this.dhn=this.book.dhn;
+        this.sku=this.book.sku;
+        this.keywords=this.book.keywords;
+        this.isbn=this.book.isbn;
       })
-      this.image.url=this.book.image;
-      this.description=this.book.description;
-      this.shippingCharges.fast_delivery=this.book.shipping_cost.fast_delivery;
-      this.shippingCharges.regular=this.book.shipping_cost.regular;
-      this.special=this.book.special;
-      this.stock=this.book.stock;
-      this.softCopy.url=this.book.link;
-      this.languages=this.book.languages;
-      this.edition=this.book.edition;
-      this.date=this.book.publishing_date;
-      this.pages=this.book.pages;
-      this.model=this.book.publishing_date;
     }
   }
 
@@ -206,35 +224,60 @@ export class BookDetailsComponent implements OnInit {
       publishing_date:this.date
     }
 
-    console.log(data);
+    this.book.title=this.title;
+    this.book.author=this.author;
+    this.book.category_id=this.category.map(a=>{return a.id});
+    this.book.description=this.description;
+    this.book.exam360=this.exam360 ? 'Yes' : 'No';
+    this.book.image=this.image.url;
+    this.book.price=this.price;
+    this.book.price_offer=this.priceOffer;
+    this.book.publication=this.publication;
+    this.book.special=this.special;
+    this.book.type=this.type;
+    this.book.languages=this.languages;
+    this.book.edition=this.edition;
+    this.book.pages=this.pages;
+    this.book.publishing_date=this.date;
+    this.book.is_active="Inactive";
+    this.book.sku=this.sku;
+    this.book.dhn=this.dhn;
+    this.book.keywords=this.keywords;
+    this.book.isbn=this.isbn;
+    this.book.genre=this.genre;
+    this.updateBook();
+    
+  }
 
-    this.bookService.updateBook(this.book.id, data).then(()=>{
-      this.toaster.success("Book successfully updated!");
+  updateBook(){
+    // this.bookService.deleteBook(this.book.id).then(()=>{
+    //   this.bookService.addPendingBook(this.book.id, this.book).then(()=>{
+    //     this.toaster.success("Book successfully updated!")
+    //   }).catch(err=>{
+    //     this.toaster.error(err.message);
+    //   })
+    // }).catch(err=>{
+    //   this.toaster.error(err.message);
+    // })
+    console.log(this.book);
+    this.bookService.addPendingBook(this.book.id, this.book).then(()=>{
+      this.toaster.success("Book successfully updated!")
     }).catch(err=>{
       this.toaster.error(err.message);
     })
   }
 
   setStock(){
-    this.bookService.updateBook(this.book.id, {stock:this.stock}).then(()=>{
-      this.toaster.success("Stock successfully updated!");
-    }).catch(err=>{
-      this.toaster.error(err.message);
-    })
+    this.book.stock=this.stock;
+    this.updateBook();
   }
 
   saveImages(){
-    var data={
-      images:this.images.map(a=>{
-        return a.image;
-      })
-    }
-    
-    this.bookService.updateBook(this.book.id, data).then(()=>{
-      this.toaster.success("Book successfully updated!");
-    }).catch(err=>{
-      this.toaster.error(err.message);
+    this.book.images=this.images.map(a=>{
+      return a.image;
     })
+    
+    this.updateBook();
   }
 
   setShippingCharges(){
@@ -243,6 +286,10 @@ export class BookDetailsComponent implements OnInit {
     }).catch(err=>{
       this.toaster.error(err.message);
     })
+  }
+
+  ngOnDestroy(){
+    this.book=null;
   }
 
 }

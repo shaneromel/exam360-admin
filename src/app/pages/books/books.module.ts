@@ -8,6 +8,7 @@ import { BookDetailsComponent } from './components/book-details/book-details.com
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AddBookComponent } from './add-book/add-book.component';
 import { NgxMyDatePickerModule } from 'ngx-mydatepicker';
+import { TagInputModule } from 'ngx-chips';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { NgxMyDatePickerModule } from 'ngx-mydatepicker';
     ThemeModule,
     SharedModule,
     AngularFireStorageModule,
-    NgxMyDatePickerModule.forRoot()
+    NgxMyDatePickerModule.forRoot(),
+    TagInputModule
   ],
   declarations: [ManageBooksComponent, BookDetailsComponent, AddBookComponent]
 })

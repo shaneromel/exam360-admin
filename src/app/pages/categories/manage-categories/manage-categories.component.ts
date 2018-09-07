@@ -36,6 +36,10 @@ export class ManageCategoriesComponent implements OnInit {
       title: {
         title: 'Title',
         type: 'string',
+      },
+      url:{
+        title:"URL paramerter",
+        type:"string"
       }
     }
   };

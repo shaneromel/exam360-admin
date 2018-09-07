@@ -24,6 +24,7 @@ import { AuthService } from './services/auth.service';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { UserService } from './services/user.service';
 import { ToastrModule } from '../../node_modules/ngx-toastr';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent],
@@ -39,7 +40,8 @@ import { ToastrModule } from '../../node_modules/ngx-toastr';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    AngularFireStorageModule
   ],
   bootstrap: [AppComponent],
   providers: [

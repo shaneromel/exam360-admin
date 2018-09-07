@@ -13,6 +13,10 @@ const routes: Routes = [{
     component: DashboardComponent,
   },
   {
+    path:"home",
+    loadChildren:"./home/home.module#HomeModule"
+  },
+  {
     path:"categories",
     loadChildren:"./categories/categories.module#CategoriesModule"
   },

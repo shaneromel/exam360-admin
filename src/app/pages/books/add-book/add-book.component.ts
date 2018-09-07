@@ -26,7 +26,7 @@ export class AddBookComponent implements OnInit {
   }
   title:string;
   author:string;
-  category:string[];
+  category:any[];
   publication:string;
   price:string;
   priceOffer:string;
@@ -39,13 +39,20 @@ export class AddBookComponent implements OnInit {
   edition:string;
   languages:string[];
   date:any;
+  sku:string;
+  dhn:string;
+  keywords:string[];
+  isbn:string;
+  genre:string;
 
   myOptions: INgxMyDpOptions = {
     // other options...
     dateFormat: 'dd.mm.yyyy',
   };
 
-  constructor(private categoryService:CategoryService, private storage:AngularFireStorage, private bookService:BookService, private toaster:ToastrService) { }
+  constructor(private categoryService:CategoryService, private storage:AngularFireStorage, private bookService:BookService, private toaster:ToastrService) {
+    this.special=false;
+   }
 
   ngOnInit() {
     this.categoryService.getCategories().subscribe(categories=>{
@@ -110,7 +117,7 @@ export class AddBookComponent implements OnInit {
 
     var data={
       author:this.author,
-      category_id:this.category,
+      category_id:this.category.map(a=>{return a.id}),
       description:this.description,
       exam360:this.exam360 ? 'Yes' : 'No',
       image:this.image.url,
@@ -133,7 +140,11 @@ export class AddBookComponent implements OnInit {
       languages:this.languages,
       edition:this.edition,
       pages:this.pages,
-      publication_date:this.date
+      publishing_date:this.date,
+      sku:"AR-"+this.dhn+"-"+this.sku,
+      keywords:this.keywords,
+      isbn:this.isbn,
+      genre:this.genre
     }
     
     this.bookService.addBook(data).then(()=>{

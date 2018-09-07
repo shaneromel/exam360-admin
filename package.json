@@ -70,6 +70,7 @@
     "nebular-icons": "1.0.8",
     "ng2-ckeditor": "1.1.13",
     "ng2-smart-table": "1.2.2",
+    "ngx-chips": "^1.9.6",
     "ngx-echarts": "2.0.1",
     "ngx-mydatepicker": "^2.4.8",
     "ngx-toastr": "^8.10.0",

@@ -27,21 +27,56 @@
                   </div>
                   <div class="form-group col-md-6">
                       <label>Category: </label>
-                      <select multiple [(ngModel)]="category" name="category" class="form-control">
+                      <!-- <select multiple [(ngModel)]="category" name="category" class="form-control">
                         <option *ngFor="let c of categories" value="{{c.id}}" >{{c.title}}</option>
-                      </select>
+                      </select> -->
+                      <tag-input name="categories" [identifyBy]="'id'" [displayBy]="'title'" [(ngModel)]='category' [ngModel]="['@item']" [onlyFromAutocomplete]="true">
+                        <tag-input-dropdown [showDropdownIfEmpty]="true" [identifyBy]="'id'" [displayBy]="'title'" [autocompleteItems]="categories">
+                            
+                        </tag-input-dropdown>
+                      </tag-input>
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <label>SKU ID: </label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">AR</span>
+                      </div>
+                      <input maxlength="3" [(ngModel)]="dhn" name="dhn" type="text" class="form-control">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">-</span>
+                      </div>
+                      <input [(ngModel)]="sku" name="sku" type="text" class="form-control">
+                    </div>
                   </div>
                   <div class="form-group col-md-6">
                     <label>Publication: </label>
                     <input class="form-control" [(ngModel)]="publication" name="publication" placeholder="Publication">
                   </div>
                   <div class="form-group col-md-6">
+                    <label>ISBN: </label>
+                    <input class="form-control" placeholder="ISBN" name="isbn" [(ngModel)]="isbn">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Genre: </label>
+                    <input class="form-control" placeholder="Genre" name="genre" [(ngModel)]="genre">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Keywords: </label>
+                    <tag-input name="keywords" [modelAsStrings]="true" [(ngModel)]='keywords'></tag-input>
+                  </div>
+                  <div class="form-group col-md-6">
                       <label>Language: </label>
-                      <select multiple name="language" class="form-control" [(ngModel)]="languages">
-                        <option>English</option>
-                        <option>Hindi</option>
-                        <option>Bengali</option>
-                      </select>
+                      <!-- <select multiple name="language" class="form-control" [(ngModel)]="languages">
+                        <option value="English">English</option>
+                        <option value="Hindi">Hindi</option>
+                        <option value="Bengali">Bengali</option>
+                      </select> -->
+                      <tag-input name="categories" [(ngModel)]='languages' [modelAsStrings]="true" [ngModel]="['@item']" [onlyFromAutocomplete]="true">
+                        <tag-input-dropdown [showDropdownIfEmpty]="true" [autocompleteItems]="['English','Hindi','Bengali']">
+                            
+                        </tag-input-dropdown>
+                      </tag-input>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Edition: </label>
@@ -112,7 +147,7 @@
                     <nb-checkbox name="special" [(ngModel)]="special" status="success" class="col-sm-4">Special book</nb-checkbox>
                   </div>
             </div>
-            <button *ngIf="title && author && category && publication && price && priceOffer && type && description; else disabled" type="submit" style="margin-bottom: 20px;" class="btn btn-success btn-block">Submit</button>
+            <button *ngIf="title && author && category && publication && price && priceOffer && type && description && isbn && sku && dhn && genre; else disabled" type="submit" style="margin-bottom: 20px;" class="btn btn-success btn-block">Submit</button>
             <ng-template  #disabled>
               <button style="margin-bottom: 20px;" class="btn btn-success btn-block disabled" type="button">Submit</button>
             </ng-template>

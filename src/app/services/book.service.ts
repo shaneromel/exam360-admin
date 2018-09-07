@@ -27,16 +27,42 @@ export class BookService {
     }))
   }
 
+  getPendingBooks(){
+    return this.afs.collection("pending_books").snapshotChanges().pipe(map(actions=>{
+      return actions.map(a=>{
+        const data=a.payload.doc.data() as any;
+        data.id=a.payload.doc.id;
+        return data;
+      })
+    }))
+  }
+
   updateBook(id:string, data:any){
     return this.afs.doc("store/"+id).update(data);
   }
 
+  updatePendingBook(id:string, data:any){
+    return this.afs.doc("pending_books/"+id).update(data);
+  }
+
   addBook(data:any){
-    return this.afs.collection("store").add(data);
+    return this.afs.collection("pending_books").add(data);
   }
 
   deleteBook(id:string){
     return this.afs.doc("store/"+id).delete();
+  }
+
+  addPendingBook(id:string, book:any){
+    return this.afs.doc("pending_books/"+id).set(book);
+  }
+
+  deletePendingBook(id:string){
+    return this.afs.doc("pending_books/"+id).delete();
+  }
+
+  setBook(id:string, book:any){
+    return this.afs.doc("store/"+id).set(book);
   }
 
 }
