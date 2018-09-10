@@ -67,6 +67,9 @@ const routes: Routes = [{
   },{
     path:"report",
     loadChildren:"./report/report.module#ReportModule"
+  },{
+    path:"report-tables",
+    loadChildren:"./report-tables/report-tables.module#ReportTablesModule"
   }, {
     path: '',
     redirectTo: 'dashboard',

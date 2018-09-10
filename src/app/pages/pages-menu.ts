@@ -23,6 +23,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ]
   },
   {
+    title:"Tables",
+    icon:"nb-tables",
+    children:[
+      {
+        title:"Transaction report",
+        link:"/pages/report-tables/transaction"
+      }
+    ]
+  },
+  {
     title:"Categories",
     icon:"nb-tables",
     children:[
