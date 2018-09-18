@@ -54,6 +54,7 @@
     "angular-tree-component": "7.2.0",
     "angular2-chartjs": "0.4.1",
     "angular2-toaster": "6.0.0",
+    "angular5-csv": "^0.2.10",
     "angularfire2": "^5.0.0-rc.11",
     "bootstrap": "4.0.0",
     "chart.js": "2.7.1",

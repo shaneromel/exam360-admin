@@ -55,6 +55,8 @@ export class BookDetailsComponent implements OnInit {
   keywords:string[];
   isbn:string;
   genre:string;
+  manNo:string;
+  manName:string;
 
   model: any = { date: { year: 2018, month: 10, day: 9 } };
 
@@ -111,6 +113,8 @@ export class BookDetailsComponent implements OnInit {
         this.sku=this.book.sku;
         this.keywords=this.book.keywords;
         this.isbn=this.book.isbn;
+        this.manNo=this.book.man_no;
+        this.manName=this.book.man_name;
       })
     }
   }
@@ -221,7 +225,9 @@ export class BookDetailsComponent implements OnInit {
       languages:this.languages,
       edition:this.edition,
       pages:this.pages,
-      publishing_date:this.date
+      publishing_date:this.date,
+      man_name:this.manName,
+      man_no:this.manNo
     }
 
     this.book.title=this.title;
@@ -245,6 +251,8 @@ export class BookDetailsComponent implements OnInit {
     this.book.keywords=this.keywords;
     this.book.isbn=this.isbn;
     this.book.genre=this.genre;
+    this.book.man_name=this.manName;
+    this.book.man_no=this.manNo;
     this.updateBook();
     
   }

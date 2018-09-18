@@ -44,6 +44,8 @@ export class AddBookComponent implements OnInit {
   keywords:string[];
   isbn:string;
   genre:string;
+  manName:string;
+  manNo:string;
 
   myOptions: INgxMyDpOptions = {
     // other options...
@@ -144,7 +146,10 @@ export class AddBookComponent implements OnInit {
       sku:"AR-"+this.dhn+"-"+this.sku,
       keywords:this.keywords,
       isbn:this.isbn,
-      genre:this.genre
+      genre:this.genre,
+      timestamp:Date.now(),
+      man_no:this.manNo,
+      man_name:this.manName
     }
     
     this.bookService.addBook(data).then(()=>{

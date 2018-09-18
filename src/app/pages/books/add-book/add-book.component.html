@@ -12,7 +12,7 @@
         <div style="margin-top: 10px; margin-bottom: 10px;" class="progress">
             <div [ngClass]="image.progressBarClass" [ngStyle]="{'width':image.uploadPercent+'%'}" role="progressbar" aria-valuemax="100">{{image.uploadPercent | number:'0.0-0'}}%</div>
         </div>
-        <input type="file" (change)="uploadMainImage($event)">
+        <input type="file" accept="image/*" (change)="uploadMainImage($event)">
       </div>
       <form (ngSubmit)="addBook()">
         <div class="row">
@@ -142,8 +142,16 @@
               <div class="form-group col-md-6">
                 <nb-checkbox name="special" [(ngModel)]="special" status="success" class="col-sm-4">Special book</nb-checkbox>
               </div>
+              <div class="form-group col-md-6">
+                <label>Manufacturer name: </label>
+                <input class="form-control" [(ngModel)]="manName" name="manName" placeholder="Manufacturer Name">
+              </div>
+              <div class="form-group col-md-6">
+                <label>Manufacturer contact number: </label>
+                <input class="form-control" [(ngModel)]="manNo" name="manNo" placeholder="Manufacturer Contact number">
+              </div>
         </div>
-        <button *ngIf="title && author && category && publication && price && priceOffer && type && description && stock && date && edition && languages; else disabled" type="submit" style="margin-bottom: 20px;" class="btn btn-success btn-block">Submit</button>
+        <button *ngIf="title && manName && manNo && author && category && publication && price && priceOffer && type && description && stock && date && edition && languages; else disabled" type="submit" style="margin-bottom: 20px;" class="btn btn-success btn-block">Submit</button>
         <ng-template  #disabled>
           <button style="margin-bottom: 20px;" class="btn btn-success btn-block disabled" type="button">Submit</button>
         </ng-template>

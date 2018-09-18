@@ -1,6 +1,8 @@
 <nb-card>
-  <nb-card-header>Transaction Report</nb-card-header>
+  <nb-card-header>Transaction Report
+    <button style="float:right;" (click)="exportCsv()" class="btn btn-hero-success">Export CSV</button>
+  </nb-card-header>
   <nb-card-body>
-    
+    <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
   </nb-card-body>
 </nb-card>

@@ -2,14 +2,18 @@ import { Component } from '@angular/core';
 import { OrderService } from '../../../services/order.service';
 import { LocalDataSource } from '../../../../../node_modules/ng2-smart-table';
 import { ToastrService } from '../../../../../node_modules/ngx-toastr';
+import { ViewButtonComponent } from '../components/view-button/view-button.component';
+import { SharedService } from '../../../services/shared.service';
+
+declare var $:any;
 
 @Component({
   selector: 'ngx-tiny-mce-page',
-  templateUrl:"tiny-mce.component.html",
+  templateUrl:"tiny-mce.component.html"
 })
 export class TinyMCEComponent {
 
-  settings = {
+  settings={
     edit: {
       editButtonContent: '<i class="nb-edit"></i>',
       saveButtonContent: '<i class="nb-checkmark"></i>',
@@ -41,10 +45,16 @@ export class TinyMCEComponent {
         type: 'string',
         editable:false
       },
+      button:{
+        title:"View",
+        type:'custom',
+        renderComponent:ViewButtonComponent
+      }
     },
     actions:{
-      add:false
-    }
+      add:false,
+      position: 'right'
+    },
   };
 
   canceledSettings = {
@@ -106,11 +116,24 @@ export class TinyMCEComponent {
   canceledSource:LocalDataSource=new LocalDataSource();
   canceledOrders:any[];
 
-  constructor(private orderService:OrderService, private toaster:ToastrService){
+  constructor(private orderService:OrderService, private toaster:ToastrService, private sharedService:SharedService){
     this.isSelected=false;
+    
+  }
+
+  route(event){
+    console.log(event);
   }
 
   ngOnInit(){
+    this.sharedService.orderIsSelected.subscribe(rowData=>{
+      if(rowData){
+        this.isSelected=true;
+        this.order=rowData
+      }else{
+        this.isSelected=false;
+      }
+    })
     this.orderService.getOrders().subscribe(orders=>{
       this.shippedOrders=orders.filter(a=>a.status==="Shipped");
       this.shippedOrders=this.shippedOrders.map(a=>{

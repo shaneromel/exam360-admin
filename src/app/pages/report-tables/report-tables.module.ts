@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { ReportTablesRoutingModule } from './report-tables-routing.module';
 import { TransactionReportComponent } from './transaction-report/transaction-report.component';
 import { SharedModule } from '../../modules/shared/shared.module';
+import { InventoryComponent } from './inventory/inventory.component';
+import { ImageComponent } from './inventory/image/image.component';
+import { StockAlertComponent } from './stock-alert/stock-alert.component';
 
 @NgModule({
   imports: [
@@ -11,6 +14,6 @@ import { SharedModule } from '../../modules/shared/shared.module';
     ReportTablesRoutingModule,
     SharedModule
   ],
-  declarations: [TransactionReportComponent]
+  declarations: [TransactionReportComponent, InventoryComponent, ImageComponent, StockAlertComponent]
 })
 export class ReportTablesModule { }

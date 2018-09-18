@@ -29,6 +29,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title:"Transaction report",
         link:"/pages/report-tables/transaction"
+      },
+      {
+        title:"Inventory Management",
+        link:"/pages/report-tables/inventory"
+      },
+      {
+        title:"Stock health alert",
+        link:"/pages/report-tables/stock"
       }
     ]
   },
