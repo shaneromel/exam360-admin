@@ -1,6 +1,21 @@
 <nb-card>
   <nb-card-header>Stock health alert</nb-card-header>
   <nb-card-body>
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label>Search ISBN: </label>
+            <input class="form-control" name="isbn" [(ngModel)]="isbn" (ngModelChange)="isbnFilter($event)" placeholder="Search ISBN">
+        </div>
+        <div class="form-group col-md-6">
+          <label>Stock below: </label>
+          <select class="form-control" name="stock" [(ngModel)]="stock" (ngModelChange)="stockFilter($event)">
+            <option>All</option>
+            <option>10</option>
+            <option>20</option>
+            <option>50</option>
+          </select>
+        </div>
+    </div>
     <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
   </nb-card-body>
 </nb-card>

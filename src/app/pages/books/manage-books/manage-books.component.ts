@@ -3,6 +3,8 @@ import { BookService } from '../../../services/book.service';
 import { LocalDataSource } from '../../../../../node_modules/ng2-smart-table';
 import { ToastrService } from '../../../../../node_modules/ngx-toastr';
 import * as firebase from 'firebase';
+import { SharedService } from '../../../services/shared.service';
+import { ViewButtonComponent } from '../components/view-button/view-button.component';
 
 @Component({
   selector: 'ngx-manage-books',
@@ -66,11 +68,6 @@ export class ManageBooksComponent implements OnInit {
         type:"number",
         editable:false
       },
-      category_id:{
-        title:"Category ID",
-        type:"string",
-        editable:false
-      },
       is_active:{
         title:"Active",
         editor:{
@@ -80,10 +77,16 @@ export class ManageBooksComponent implements OnInit {
             false:"Inactive"
           }
         }
+      },
+      button:{
+        title:"View",
+        type:"custom",
+        renderComponent:ViewButtonComponent
       }
     },
     actions:{
-      add:false
+      add:false,
+      position: 'right'
     }
   };
   books:any[];
@@ -93,11 +96,22 @@ export class ManageBooksComponent implements OnInit {
   book:any;
   pendingBooks:any[];
 
-  constructor(private bookService:BookService, private toaster:ToastrService) { 
+  constructor(private bookService:BookService, private toaster:ToastrService, private sharedService:SharedService) { 
     this.isSelected=false;
   }
 
   ngOnInit() {
+
+    this.sharedService.bookIsSelected.subscribe(rowData=>{
+      if(rowData){
+        this.isSelected=true;
+        this.book=rowData
+      }else{
+        this.isSelected=false;
+        this.book=null;
+      }
+    })
+
     this.bookService.getBooks().subscribe(books=>{
       this.books=books;
       this.source.load(this.books);

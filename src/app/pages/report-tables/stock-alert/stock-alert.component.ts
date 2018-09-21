@@ -43,6 +43,8 @@ export class StockAlertComponent implements OnInit {
     }
   };
 
+  tableDate:any[];
+
   source:LocalDataSource=new LocalDataSource();
 
   constructor(private bookService:BookService) { }
@@ -66,29 +68,49 @@ export class StockAlertComponent implements OnInit {
             binding="Paperback"
             break;
           }
-          var d={
-            status:book.stock>0 ? book.is_active : "Out of stock",
-            image:"<img height='50px' width='50px' src='"+book.image+"'>",
-            sku:book.sku,
-            product:"<ul>"+
-            "<li>Product Name: "+book.title+"</li>"+
-            "<li>Languages: "+book.languages.toString()+"</li>"+
-            "<li>Binding: "+binding+"</li>"+
-            "<li>Publication: "+book.publication+"</li>"+
-            "<li>Author: "+book.author+"</li>"+
-            "</ul>",
-            stock:book.stock,
-            manufacturer:"<ul>"+
-            "<li>Name: "+book.man_name+"</li>"+
-            "<li>Contact number: "+book.man_no+"</li>"+
-            "</ul>"
+
+          if(binding!="Soft Copy"){
+            var d={
+              status:book.stock>0 ? book.is_active : "Out of stock",
+              image:"<img height='50px' width='50px' src='"+book.image+"'>",
+              sku:book.sku,
+              product:"<ul>"+
+              "<li>Product Name: "+book.title+"</li>"+
+              "<li>Languages: "+book.languages.toString()+"</li>"+
+              "<li>Binding: "+binding+"</li>"+
+              "<li>Publication: "+book.publication+"</li>"+
+              "<li>Author: "+book.author+"</li>"+
+              "</ul>",
+              stock:book.stock,
+              manufacturer:"<ul>"+
+              "<li>Name: "+book.man_name+"</li>"+
+              "<li>Contact number: "+book.man_no+"</li>"+
+              "</ul>",
+              isbn:book.isbn
+            }
+            data.push(d);
           }
-          data.push(d);
 
         })
+        this.tableDate=data;
         this.source.load(data);
       })
     })
+  }
+
+  isbnFilter(event){
+    this.source.setFilter([
+      {
+        field:"isbn",
+        search:event
+      }
+    ])
+  }
+
+  stockFilter(event){
+    if(event!="All"){
+      this.source.load(this.tableDate.filter(a=> a.stock<event));
+    }
   }
 
 }

@@ -7,6 +7,9 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export class SharedService {
 
   private orderIsSelectedSource=new BehaviorSubject<any>(false);
+  private bookIsSelectedSource=new BehaviorSubject<any>(false);
+
+  bookIsSelected=this.bookIsSelectedSource.asObservable();
   orderIsSelected=this.orderIsSelectedSource.asObservable();
   isSelected:boolean;
 
@@ -14,6 +17,10 @@ export class SharedService {
 
   changeOrderIsSelected(rowData:any){
     this.orderIsSelectedSource.next(rowData);
+  }
+
+  changeBookIsSelected(rowData:any){
+    this.bookIsSelectedSource.next(rowData);
   }
     
   }

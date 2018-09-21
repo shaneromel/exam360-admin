@@ -9,6 +9,7 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AddBookComponent } from './add-book/add-book.component';
 import { NgxMyDatePickerModule } from 'ngx-mydatepicker';
 import { TagInputModule } from 'ngx-chips';
+import { ViewButtonComponent } from './components/view-button/view-button.component';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { TagInputModule } from 'ngx-chips';
     NgxMyDatePickerModule.forRoot(),
     TagInputModule
   ],
-  declarations: [ManageBooksComponent, BookDetailsComponent, AddBookComponent]
+  entryComponents:[ViewButtonComponent],
+  declarations: [ManageBooksComponent, BookDetailsComponent, AddBookComponent, ViewButtonComponent],
 })
 export class BooksModule { }
