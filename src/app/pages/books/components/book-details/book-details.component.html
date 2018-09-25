@@ -202,4 +202,30 @@
         </ng-template>
       </form>
     </nb-tab>
+    <nb-tab tabTitle="Reviews">
+      <div style="margin-top:20px;">
+        <div *ngFor="let review of reviews; index as i" class="row">
+          <div class="form-group col-md-4">
+            <label>Review: </label>
+            <input class="form-control" placeholder="Review" [(ngModel)]="reviews[i].review">
+          </div>
+          <div class="form-group col-md-4">
+            <label>Rating: </label>
+            <input class="form-control" type="number" placeholder="Rating" [(ngModel)]="reviews[i].rating">
+          </div>
+          <div class="col-md-4">
+            <div style="float:right">
+              <button (click)="updateReview(reviews[i].id, reviews[i])" style="margin-bottom:5px;" class="btn btn-success">Update</button>
+              <br>
+              <button style="margin-bottom:5px;" (click)="hideReview(reviews[i].id)" *ngIf="review.is_visible; else show" class="btn btn-warning">Hide</button>
+              <ng-template #show>
+                <button class="btn btn-warning" (click)="showReview(reviews[i].id)" style="margin-bottom:5px;">Show</button>
+              </ng-template>
+              <br>
+              <button (click)="deleteReview(review.id)" style="margin-bottom:5px;" class="btn btn-danger">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-tab>
 </nb-tabset>

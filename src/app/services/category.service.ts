@@ -31,8 +31,8 @@ export class CategoryService {
     return this.afs.doc("category/"+id).update(data);
   }
 
-  addCategory(data:any){
-    return this.afs.collection("category").add(data);
+  addCategory(data:any, id:string){
+    return this.afs.doc("category/"+id).set(data);
   }
 
   deleteCategory(id:string){

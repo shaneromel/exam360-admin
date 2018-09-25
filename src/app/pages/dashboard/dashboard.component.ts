@@ -81,6 +81,21 @@ export class DashboardComponent implements OnDestroy {
   booksLength:number;
   ordersLength:number;
   totalEarnings:number;
+  unshippedOrdersLength:number;
+  shippedOrdersLength:number;
+  canceledOrdersLength:number;
+  liveProducts:number;
+  paperBackLength:number;
+  pdfLength:number;
+  todayOrdersLength:number;
+  todayOrdersCost:number;
+  weekOrdersLength:number;
+  weekOrdersCost:number;
+  fifteenDaysOrdersCost:number;
+  fifteenDaysOrdersLength:number;
+  thirtyDaysOrdersLength:number;
+  thirtyDaysOrdersCost:number;
+  totalSales:number;
 
   constructor(private themeService: NbThemeService, private userService:UserService, private bookService:BookService, private orderService:OrderService) {
     this.themeService.getJsTheme()
@@ -91,12 +106,72 @@ export class DashboardComponent implements OnDestroy {
   }
 
   ngOnInit(){
+
+    this.orderService.getUnshippedOrders().subscribe(orders=>{
+      this.unshippedOrdersLength=orders.length;
+    });
+
+    this.bookService.getBooks().subscribe(books=>{
+      this.liveProducts=books.length;
+    })
+
+    this.orderService.getShippedOrders().subscribe(orders=>{
+      this.shippedOrdersLength=orders.length;
+      this.totalSales=0;
+      orders.forEach(a=>{
+        this.totalSales=this.totalSales+a.total;
+      });
+    });
+
+    this.bookService.getPdfs().subscribe(books=>{
+      this.pdfLength=books.length;
+    });
+
+    this.orderService.getOrdersTimestamp(Date.now()-24*60*60*1000).subscribe(orders=>{
+      this.todayOrdersLength=orders.length;
+      this.todayOrdersCost=0;
+      orders.forEach(a=>{
+        this.todayOrdersCost=this.todayOrdersCost+a.total;
+      })
+    });
+
+    this.orderService.getOrdersTimestamp(Date.now()-7*24*60*60*1000).subscribe(orders=>{
+      this.weekOrdersLength=orders.length;
+      this.weekOrdersCost=0;
+      orders.forEach(a=>{
+        this.weekOrdersCost=this.weekOrdersCost+a.total;
+      });
+    });
+
+    this.orderService.getOrdersTimestamp(Date.now()-15*24*60*60*1000).subscribe(orders=>{
+      this.fifteenDaysOrdersCost=0;
+      this.fifteenDaysOrdersLength=orders.length;
+      orders.forEach(a=>{
+        this.fifteenDaysOrdersCost=this.fifteenDaysOrdersCost+a.total;
+      });
+    });
+
+    this.orderService.getOrdersTimestamp(Date.now()-30*24*60*60*1000).subscribe(orders=>{
+      this.thirtyDaysOrdersLength=orders.length;
+      this.thirtyDaysOrdersCost=0;
+      orders.forEach(a=>{
+        this.thirtyDaysOrdersCost=this.thirtyDaysOrdersCost+a.total;
+      })
+    })
+
+    this.orderService.getCanceledOrders().subscribe(orders=>{
+      this.canceledOrdersLength=orders.length;
+    })
+
     this.userService.getUsers().subscribe(users=>{
       this.usersLength=users.length;
     });
 
     this.bookService.getBooks().subscribe(books=>{
       this.booksLength=books.length;
+      this.paperBackLength=books.filter(a=>{
+        return a.type!=2;
+      }).length;
     });
 
     this.orderService.getShippedOrders().subscribe(order=>{

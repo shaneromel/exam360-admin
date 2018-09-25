@@ -3,6 +3,8 @@ import { CategoryService } from '../../../services/category.service';
 import { LocalDataSource } from '../../../../../node_modules/ng2-smart-table';
 import { ToastrService } from '../../../../../node_modules/ngx-toastr';
 
+import * as firebase from 'firebase';
+
 @Component({
   selector: 'ngx-manage-categories',
   templateUrl: './manage-categories.component.html',
@@ -76,13 +78,26 @@ export class ManageCategoriesComponent implements OnInit {
 
   createCategory(event){
     delete event.newData.id;
-    this.categoryService.addCategory(event.newData).then(()=>{
-      this.toaster.success("Category successfully deleted!");
-      event.confirm.reject();
-    }).catch(err=>{
-      this.toaster.error(err.message);
-      event.confirm.reject();
+    var id="AR203-";
+    firebase.firestore().doc("category-count/count").get().then(querySnapshot=>{
+      var count=this.pad(querySnapshot.data().count+1, 7, "0");
+      id=id+count;
+      this.categoryService.addCategory(event.newData, id).then(()=>{
+        firebase.firestore().doc("category-count/count").update({count:querySnapshot.data().count+1});
+        this.toaster.success("Category successfully added!");
+        event.confirm.reject();
+      }).catch(err=>{
+        this.toaster.error(err.message);
+        event.confirm.reject();
+      })
     })
+    
+  }
+
+  pad(n, width, z) {
+    z = z || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   }
 
 }

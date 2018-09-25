@@ -4,10 +4,10 @@
     <ngx-book-details *ngIf="isSelected" [book]="book" ></ngx-book-details>
     <nb-tabset>
       <nb-tab tabTitle="Approved Books">
-        <ng2-smart-table [settings]="settings" [source]="source" (editConfirm)="editBook($event)" (deleteConfirm)="deleteBook($event)" (userRowSelect)="bookSelected($event)"></ng2-smart-table>
+        <ng2-smart-table [settings]="settings" [source]="source" (editConfirm)="editBook($event)" (deleteConfirm)="deleteBook($event)"></ng2-smart-table>
       </nb-tab>
       <nb-tab tabTitle="Pending Books">
-        <ng2-smart-table [settings]="settings" [source]="pendingSource" (editConfirm)="editBook($event)" (deleteConfirm)="deleteBook($event)" (userRowSelect)="bookSelected($event)"></ng2-smart-table>
+        <ng2-smart-table [settings]="settings" [source]="pendingSource" (editConfirm)="editBook($event)" (deleteConfirm)="deleteBook($event)"></ng2-smart-table>
       </nb-tab>
     </nb-tabset>
   </nb-card-body>

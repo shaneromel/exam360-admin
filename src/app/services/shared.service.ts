@@ -6,8 +6,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 })
 export class SharedService {
 
-  private orderIsSelectedSource=new BehaviorSubject<any>(false);
-  private bookIsSelectedSource=new BehaviorSubject<any>(false);
+  private orderIsSelectedSource=new BehaviorSubject<any>(null);
+  private bookIsSelectedSource=new BehaviorSubject<any>(null);
 
   bookIsSelected=this.bookIsSelectedSource.asObservable();
   orderIsSelected=this.orderIsSelectedSource.asObservable();

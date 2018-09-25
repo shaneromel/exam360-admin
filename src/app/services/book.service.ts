@@ -27,6 +27,25 @@ export class BookService {
     }))
   }
 
+  getReviews(id:string){
+    return this.afs.collection("store/"+id+"/reviews").snapshotChanges().pipe(map(actions=>{
+      return actions.map(a=>{
+        const data=a.payload.doc.data() as any;
+        data.id=a.payload.doc.id;
+        return data;
+      })
+    }))
+  }
+
+  deleteReview(bookId:string, id:string){
+    return this.afs.doc("store/"+bookId+"/reviews/"+id).delete();
+  }
+
+  updateReview(bookId:string, id:string, data:any){
+    console.log(id);
+    return this.afs.doc("store/"+bookId+"/reviews/"+id).update(data);
+  }
+
   getPendingBooks(){
     return this.afs.collection("pending_books").snapshotChanges().pipe(map(actions=>{
       return actions.map(a=>{
@@ -63,6 +82,26 @@ export class BookService {
 
   setBook(id:string, book:any){
     return this.afs.doc("store/"+id).set(book);
+  }
+
+  getPaperbacks(){
+    return this.afs.collection("store", ref=>ref.where("type",">",2).where("type","<",2)).snapshotChanges().pipe(map(actions=>{
+      return actions.map(a=>{
+        const data=a.payload.doc.data() as any;
+        data.id=a.payload.doc.id;
+        return data;
+      })
+    }))
+  }
+
+  getPdfs(){
+    return this.afs.collection("store",ref=>ref.where("type","<",3)).snapshotChanges().pipe(map(actions=>{
+      return actions.map(a=>{
+        const data=a.payload.doc.data() as any;
+        data.id=a.payload.doc.id;
+        return data;
+      })
+    }))
   }
 
 }

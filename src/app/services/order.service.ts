@@ -19,6 +19,16 @@ export class OrderService {
     }))
   }
 
+  getCanceledOrders(){
+    return this.afs.collection("orders", ref=>ref.where("status","==","Canceled")).snapshotChanges().pipe(map(actions=>{
+      return actions.map(a=>{
+        const data=a.payload.doc.data() as any;
+        data.id=a.payload.doc.id;
+        return data;
+      })
+    }))
+  }
+
   editOrder(id:string, data:any){
     return this.afs.doc("orders/"+id).set(data);
   }
@@ -42,7 +52,17 @@ export class OrderService {
   }
 
   getUnshippedOrders(){
-    return this.afs.collection("orders",ref=>ref.where("status","<","Shipped").where("status",">","Shipped")).snapshotChanges().pipe(map(actions=>{
+    return this.afs.collection("orders",ref=>ref.where("status","==","Under Process")).snapshotChanges().pipe(map(actions=>{
+      return actions.map(a=>{
+        const data=a.payload.doc.data() as any;
+        data.id=a.payload.doc.id;
+        return data;
+      })
+    }))
+  }
+
+  getOrdersTimestamp(timestamp:number){
+    return this.afs.collection("orders",ref=>ref.where("timestamp",">=",timestamp)).snapshotChanges().pipe(map(actions=>{
       return actions.map(a=>{
         const data=a.payload.doc.data() as any;
         data.id=a.payload.doc.id;

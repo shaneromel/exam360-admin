@@ -11,24 +11,21 @@ export class ViewButtonComponent implements OnInit {
   @Input() rowData:any;
   isSelected:boolean;
 
-  constructor(private sharedService:SharedService) { }
-
-  ngOnInit() {
+  constructor(private sharedService:SharedService) { 
     this.sharedService.bookIsSelected.subscribe(rowData=>{
-      if(this.rowData){
-        this.isSelected=true;
-      }else{
-        this.isSelected=false;
-      }
+      console.log(rowData);
+      this.isSelected=rowData ? true : false;
     })
   }
 
+  ngOnInit() {
+    
+  }
+
   onClick(){
-    if(this.isSelected){
-      this.sharedService.changeBookIsSelected(null);
-    }else{
-      this.sharedService.changeBookIsSelected(this.rowData);
-    }
+    console.log(this.isSelected);
+    this.isSelected=!this.isSelected;
+    this.sharedService.changeBookIsSelected(this.isSelected ? this.rowData : null);
   }
 
 }

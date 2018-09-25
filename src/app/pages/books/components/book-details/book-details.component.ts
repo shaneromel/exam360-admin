@@ -57,6 +57,7 @@ export class BookDetailsComponent implements OnInit {
   genre:string;
   manNo:string;
   manName:string;
+  reviews:any[];
 
   model: any = { date: { year: 2018, month: 10, day: 9 } };
 
@@ -69,9 +70,47 @@ export class BookDetailsComponent implements OnInit {
     
   }
 
+  deleteReview(id:string){
+    this.bookService.deleteReview(this.book.id, id).then(()=>{
+      this.toaster.success("Review successfully deleted!")
+    }).catch(err=>{
+      this.toaster.error(err.message);
+    })
+  }
+
+  updateReview(id:string, review:any){
+    console.log(id);
+    delete review.id;
+    this.bookService.updateReview(this.book.id, id, review).then(()=>{
+      this.toaster.success("Review successfully updated!")
+    }).catch(err=>{
+      this.toaster.error(err.message);
+    })
+  }
+
+  hideReview(id:string){
+    this.bookService.updateReview(this.book.id, id, {is_visible: false}).then(()=>{
+      this.toaster.success("Review successfully hidden!")
+    }).catch(err=>{
+      this.toaster.error(err.message);
+    })
+  }
+
+  showReview(id:string){
+    this.bookService.updateReview(this.book.id, id, {is_visible: true}).then(()=>{
+      this.toaster.success("Review successfully restored!")
+    }).catch(err=>{
+      this.toaster.error(err.message);
+    })
+  }
+
   ngOnChanges(){
     if(this.book){
-      console.log(this.book);
+
+      this.bookService.getReviews(this.book.id).subscribe(reviews=>{
+        this.reviews=reviews;
+      })
+
       this.categoryService.getCategories().subscribe(categories=>{
         this.categories=categories;
         this.category=this.book.category_id.map(a=>{

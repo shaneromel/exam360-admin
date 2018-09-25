@@ -105,7 +105,8 @@ export class ManageBooksComponent implements OnInit {
     this.sharedService.bookIsSelected.subscribe(rowData=>{
       if(rowData){
         this.isSelected=true;
-        this.book=rowData
+        this.book=rowData;
+        console.log(rowData)
       }else{
         this.isSelected=false;
         this.book=null;

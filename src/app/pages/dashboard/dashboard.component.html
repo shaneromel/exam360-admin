@@ -28,6 +28,104 @@
   </div>
 
 </div>
+<div class="row">
+  <div class="col-md-3">
+    <nb-card>
+      <nb-card-header>Orders Summary</nb-card-header>
+      <nb-card-body>
+        <table class="info-table" >
+          <tr>
+            <td>Unshipped:</td>
+            <td>{{unshippedOrdersLength}}</td>
+          </tr>
+          <tr>
+            <td>Shipped:</td>
+            <td>{{shippedOrdersLength}}</td>
+          </tr>
+          <tr>
+            <td>Cancelled:</td>
+            <td>{{canceledOrdersLength}}</td>
+          </tr>
+        </table>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-3">
+    <nb-card>
+      <nb-card-header>Listings</nb-card-header>
+      <nb-card-body>
+        <table class="info-table" >
+          <tr>
+            <td>Pending Approval:</td>
+            <td>{{unshippedOrdersLength}}</td>
+          </tr>
+          <tr>
+            <td>Product Live:</td>
+            <td>{{shippedOrdersLength}}</td>
+          </tr>
+          <tr>
+            <td>Number of items (Paperback):</td>
+            <td>{{paperBackLength}}</td>
+          </tr>
+          <tr>
+            <td>Number of items (PDF):</td>
+            <td>{{pdfLength}}</td>
+          </tr>
+        </table>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-6">
+    <nb-card>
+      <nb-card-header>Sales Summary</nb-card-header>
+      <nb-card-body>
+        <table class="info-table" >
+          <tr>
+            <td>Today:</td>
+            <td>&#8377;{{todayOrdersCost | number:'0.2-2'}}</td>
+            <td>{{todayOrdersLength}} Units</td>
+          </tr>
+          <tr>
+            <td>7 days:</td>
+            <td>&#8377;{{weekOrdersCost | number:'0.2-2'}}</td>
+            <td>{{weekOrdersLength}} Units</td>
+          </tr>
+          <tr>
+            <td>15 days:</td>
+            <td>&#8377;{{fifteenDaysOrdersCost | number:'0.2-2'}}</td>
+            <td>{{fifteenDaysOrdersLength}} Units</td>
+          </tr>
+          <tr>
+            <td>30 days:</td>
+            <td>&#8377;{{thirtyDaysOrdersCost | number:'0.2-2'}}</td>
+            <td>{{thirtyDaysOrdersLength}} Units</td>
+          </tr>
+        </table>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-3">
+    <nb-card>
+      <nb-card-header>History</nb-card-header>
+      <nb-card-body>
+        <table class="info-table">
+          <tr>
+            <td>Users:</td>
+            <td>{{usersLength}}</td>
+          </tr>
+          <tr>
+            <td>Total Earnings:</td>
+            <td>&#8377;{{totalEarnings}}</td>
+          </tr>
+          <tr>
+            <td>Total Sales:</td>
+            <td>{{shippedOrdersLength}}</td>
+          </tr>
+        </table>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
 
 <!-- <div class="row">
   <div class="col-xxxl-3 col-xxl-4 col-lg-5 col-md-6">
