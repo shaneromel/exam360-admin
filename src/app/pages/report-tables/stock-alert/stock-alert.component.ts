@@ -44,6 +44,8 @@ export class StockAlertComponent implements OnInit {
   };
 
   tableDate:any[];
+  isbn:string;
+  stock:string;
 
   source:LocalDataSource=new LocalDataSource();
 

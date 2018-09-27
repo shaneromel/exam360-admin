@@ -47,8 +47,12 @@ export class TransactionReportComponent implements OnInit {
     }
   };
 
+  range:string;
+
   books:any[];
   source:LocalDataSource=new LocalDataSource();
+  from:number;
+  to:number;
 
   constructor(private orderService:OrderService) { }
 
@@ -73,7 +77,6 @@ export class TransactionReportComponent implements OnInit {
         })
       })
       this.source.load(this.books);
-      console.log(this.books);
     })
   }
 
@@ -82,6 +85,87 @@ export class TransactionReportComponent implements OnInit {
       headers: ["Date", "Order ID", "Product Name","SKU ID","Binding Type","Selling Price","Shipping Price","Total Values","Shipping Status"]
     }
     new Angular5Csv(this.books, 'My Report', options);
+  }
+
+  rangeChanged(event){
+    var dayTimestamp=24*60*60*1000;
+    if(event!="all" && event!="manual"){
+      this.orderService.getOrdersTimestamp(Date.now()-parseInt(event)*dayTimestamp).subscribe(orders=>{
+        this.books=new Array();
+      orders.forEach(order=>{
+        var date=new Date(order.timestamp);
+        var data={
+          date:date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear(),
+          id:order.id,
+          status:order.status
+        } as any;
+        order.cart.forEach(item=>{
+          data.name=item.book.title;
+          data.sku=item.book.sku;
+          data.type=item.typeName;
+          data.sp=item.book.price_offer;
+          data.shipping_charge=item.deliveryPrice;
+          data.total=item.book.price_offer+item.deliveryPrice;
+          this.books.push(data);
+        })
+      })
+      this.source.load(this.books);
+      })
+    }else{
+      this.orderService.getOrders().subscribe(orders=>{
+        this.books=new Array();
+        orders.forEach(order=>{
+          var date=new Date(order.timestamp);
+          var data={
+            date:date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear(),
+            id:order.id,
+            status:order.status
+          } as any;
+          order.cart.forEach(item=>{
+            data.name=item.book.title;
+            data.sku=item.book.sku;
+            data.type=item.typeName;
+            data.sp=item.book.price_offer;
+            data.shipping_charge=item.deliveryPrice;
+            data.total=item.book.price_offer+item.deliveryPrice;
+            this.books.push(data);
+          })
+        })
+        this.source.load(this.books);
+      })
+    }
+  }
+
+  fromDateChanged(event){
+    this.from=event.epoc*1000;
+  }
+
+  toDateChanged(event){
+    this.to=event.epoc*1000;
+  }
+  
+  applyRange(){
+    this.orderService.getOrdersInRange(this.from, this.to).subscribe(orders=>{
+      this.books=new Array();
+        orders.forEach(order=>{
+          var date=new Date(order.timestamp);
+          var data={
+            date:date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear(),
+            id:order.id,
+            status:order.status
+          } as any;
+          order.cart.forEach(item=>{
+            data.name=item.book.title;
+            data.sku=item.book.sku;
+            data.type=item.typeName;
+            data.sp=item.book.price_offer;
+            data.shipping_charge=item.deliveryPrice;
+            data.total=item.book.price_offer+item.deliveryPrice;
+            this.books.push(data);
+          })
+        })
+        this.source.load(this.books);
+    })
   }
 
 }

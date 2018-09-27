@@ -3,6 +3,60 @@
     <button style="float:right;" (click)="exportCsv()" class="btn btn-hero-success">Export CSV</button>
   </nb-card-header>
   <nb-card-body>
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label>Date range: </label>
+            <select [(ngModel)]="range" name="range" (ngModelChange)="rangeChanged($event)" class="form-control">
+              <option value="all">All</option>
+              <option value="1">Today</option>
+              <option value="3">Last 3 days</option>
+              <option value="7">Last 7 days</option>
+              <option value="15">Last 15 days</option>
+              <option value="30">Last 30 days</option>
+              <option value="manual">Manual date range</option>
+            </select>
+        </div>
+    </div>
+    <ng-container *ngIf="range==='manual'">
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label>From: </label>
+                <div class="input-group">
+                    <input class="form-control" style="float:none" placeholder="Select a date" ngx-mydatepicker name="mydate"
+                            [options]="myOptions" #dp1="ngx-mydatepicker" (dateChanged)="fromDateChanged($event)"/>
+            
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" (click)="dp1.clearDate()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" (click)="dp1.toggleCalendar()">
+                            <i class="far fa-calendar-alt"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label>To: </label>
+                <div class="input-group">
+                    <input class="form-control" style="float:none" placeholder="Select a date" ngx-mydatepicker name="mydate"
+                            [options]="myOptions" #dp2="ngx-mydatepicker" (dateChanged)="toDateChanged($event)"/>
+            
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" (click)="dp2.clearDate()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" (click)="dp2.toggleCalendar()">
+                            <i class="far fa-calendar-alt"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <button *ngIf="from && to; else disabled" style="margin-bottom:10px;" (click)="applyRange()" class="btn btn-success btn-block">Search</button>
+        <ng-template #disabled>
+          <button class="btn btn-success btn-block disabled" style="margin-bottom:10px;">Search</button>
+        </ng-template>
+    </ng-container>
     <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
   </nb-card-body>
 </nb-card>

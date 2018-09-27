@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../../../services/category.service';
 import { LocalDataSource } from '../../../../../node_modules/ng2-smart-table';
 import { ToastrService } from '../../../../../node_modules/ngx-toastr';
+import * as globals from '../../../globals';
 
 import * as firebase from 'firebase';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'ngx-manage-categories',
@@ -48,7 +50,7 @@ export class ManageCategoriesComponent implements OnInit {
   categories:any[];
   source:LocalDataSource=new LocalDataSource();
 
-  constructor(private categoryService:CategoryService, private toaster:ToastrService) { }
+  constructor(private categoryService:CategoryService, private toaster:ToastrService, private http:HttpClient) { }
 
   ngOnInit() {
     this.categoryService.getCategories().subscribe(categories=>{
@@ -84,7 +86,13 @@ export class ManageCategoriesComponent implements OnInit {
       id=id+count;
       this.categoryService.addCategory(event.newData, id).then(()=>{
         firebase.firestore().doc("category-count/count").update({count:querySnapshot.data().count+1});
-        this.toaster.success("Category successfully added!");
+        this.http.get<any>(globals.REST_API+"/set-urls").subscribe(response=>{
+          if(response.code==="success"){
+            this.toaster.success("Category successfully added!");
+          }else{
+            this.toaster.error(response.message);
+          }
+        })
         event.confirm.reject();
       }).catch(err=>{
         this.toaster.error(err.message);

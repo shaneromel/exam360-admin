@@ -285,8 +285,7 @@ export class BookDetailsComponent implements OnInit {
     this.book.pages=this.pages;
     this.book.publishing_date=this.date;
     this.book.is_active="Inactive";
-    this.book.sku=this.sku;
-    this.book.dhn=this.dhn;
+    this.book.sku="AR-"+this.dhn+"-"+this.sku;
     this.book.keywords=this.keywords;
     this.book.isbn=this.isbn;
     this.book.genre=this.genre;

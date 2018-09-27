@@ -71,4 +71,14 @@ export class OrderService {
     }))
   }
 
+  getOrdersInRange(from:number,to:number){
+    return this.afs.collection("orders", ref=>ref.where("timestamp",">=",from).where("timestamp","<=",to)).snapshotChanges().pipe(map(actions=>{
+      return actions.map(a=>{
+        const data=a.payload.doc.data() as any;
+        data.id=a.payload.doc.id;
+        return data;
+      })
+    }))
+  }
+
 }
