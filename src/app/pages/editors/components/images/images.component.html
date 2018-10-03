@@ -1,0 +1,7 @@
+<ul style="list-style-type:none;">
+  <li *ngFor="let item of rowData?.cart">
+    <img height="64px" width="64px" [src]="item.book.image">
+    X {{item.quantity}}
+    <p>Delivery: <ng-container *ngIf="item.deliveryType==='Expedite'; else regular"><strong class="text-danger">Expedite</strong></ng-container><ng-template #regular>Regular</ng-template></p>
+  </li>
+</ul>

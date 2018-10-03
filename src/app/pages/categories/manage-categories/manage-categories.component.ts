@@ -32,11 +32,6 @@ export class ManageCategoriesComponent implements OnInit {
       confirmDelete: true,
     },
     columns: {
-      id: {
-        title: 'ID',
-        type: 'string',
-        editable:false
-      },
       title: {
         title: 'Title',
         type: 'string',
@@ -44,7 +39,14 @@ export class ManageCategoriesComponent implements OnInit {
       url:{
         title:"URL paramerter",
         type:"string"
+      },
+      description:{
+        title:"Description",
+        type:"string"
       }
+    },
+    actions:{
+      position:"right"
     }
   };
   categories:any[];
@@ -64,7 +66,7 @@ export class ManageCategoriesComponent implements OnInit {
     this.categoryService.updateCategory(event.data.id, event.newData).then(()=>{
       this.toaster.success("Category successfully updated!");
     }).catch(err=>{
-      this.toaster.error(err.message);
+      this.toaster.error(err.message);  
     })
   }
 

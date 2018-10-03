@@ -113,6 +113,7 @@ export class DashboardComponent implements OnDestroy {
 
     this.bookService.getBooks().subscribe(books=>{
       this.liveProducts=books.length;
+      console.log(books);
     })
 
     this.orderService.getShippedOrders().subscribe(orders=>{

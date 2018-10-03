@@ -7,6 +7,9 @@ import { EditorsRoutingModule, routedComponents } from './editors-routing.module
 import { SharedModule } from '../../modules/shared/shared.module';
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
 import { ViewButtonComponent } from './components/view-button/view-button.component';
+import { ImagesComponent } from './components/images/images.component';
+import { OrderIdComponent } from './components/order-id/order-id.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
 
 @NgModule({
   imports: [
@@ -20,7 +23,10 @@ import { ViewButtonComponent } from './components/view-button/view-button.compon
     ...routedComponents,
     OrderDetailsComponent,
     ViewButtonComponent,
+    ImagesComponent,
+    OrderIdComponent,
+    ProductDetailsComponent,
   ],
-  entryComponents:[ViewButtonComponent]
+  entryComponents:[ViewButtonComponent, ImagesComponent, OrderIdComponent, ProductDetailsComponent]
 })
 export class EditorsModule { }

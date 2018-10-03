@@ -1,0 +1,4 @@
+<ng-container *ngFor="let item of rowData.cart">
+  <h4>{{item.book.title}}</h4>
+  <p>{{item.book.author}}, {{item.book.publication}}, {{item.book.languages.toString()}}, {{item.typeName}}</p>
+</ng-container>

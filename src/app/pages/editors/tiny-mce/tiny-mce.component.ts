@@ -4,6 +4,10 @@ import { LocalDataSource } from '../../../../../node_modules/ng2-smart-table';
 import { ToastrService } from '../../../../../node_modules/ngx-toastr';
 import { ViewButtonComponent } from '../components/view-button/view-button.component';
 import { SharedService } from '../../../services/shared.service';
+import { ImagesComponent } from '../components/images/images.component';
+import { UserService } from '../../../services/user.service';
+import { OrderIdComponent } from '../components/order-id/order-id.component';
+import { ProductDetailsComponent } from '../components/product-details/product-details.component';
 
 declare var $:any;
 
@@ -26,18 +30,26 @@ export class TinyMCEComponent {
     },
     columns: {
       id: {
-        title: 'ID',
-        type: 'string',
+        title: 'Order ID',
+        type: 'custom',
+        renderComponent:OrderIdComponent,
         editable:false
       },
-      user_uid: {
-        title: 'User UID',
-        type: 'string',
+      images:{
+        title:"Images",
+        type:"custom",
+        renderComponent:ImagesComponent,
+        editable:false
+      },
+      details:{
+        title:"Product Details",
+        type:"custom",
+        renderComponent:ProductDetailsComponent,
         editable:false
       },
       total: {
-        title: 'Total(₹)',
-        type: 'number',
+        title: 'Shipment(₹)',
+        type: 'text',
         editable:false
       },
       date: {
@@ -54,6 +66,8 @@ export class TinyMCEComponent {
     },
     actions:{
       add:false,
+      edit:false,
+      delete:false,
       position: 'right'
     },
   };
@@ -71,8 +85,8 @@ export class TinyMCEComponent {
     },
     columns: {
       id: {
-        title: 'ID',
-        type: 'string',
+        title: 'Order ID',
+        type: 'html',
         editable:false
       },
       user_uid: {
@@ -117,7 +131,7 @@ export class TinyMCEComponent {
   canceledSource:LocalDataSource=new LocalDataSource();
   canceledOrders:any[];
 
-  constructor(private orderService:OrderService, private toaster:ToastrService, private sharedService:SharedService){
+  constructor(private orderService:OrderService, private toaster:ToastrService, private sharedService:SharedService, private userService:UserService){
     this.isSelected=false;
     
   }
@@ -140,13 +154,15 @@ export class TinyMCEComponent {
       this.shippedOrders=this.shippedOrders.map(a=>{
         var date=new Date(a.timestamp);
         a.date=date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
+        a.total=a.subTotal+"+"+a.shippingRate
         return a;
-      })
+      });
 
       this.unshippedOrders=orders.filter(a=>a.status!="Shipped" && a.status!="Canceled");
       this.unshippedOrders=this.unshippedOrders.map(a=>{
         var date=new Date(a.timestamp);
         a.date=date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
+        a.total=a.subTotal+"+"+a.shippingRate
         return a;
       });
 
