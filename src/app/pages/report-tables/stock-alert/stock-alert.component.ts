@@ -43,7 +43,7 @@ export class StockAlertComponent implements OnInit {
     }
   };
 
-  tableDate:any[];
+  tableData:any[];
   isbn:string;
   stock:string;
 
@@ -55,7 +55,6 @@ export class StockAlertComponent implements OnInit {
     this.bookService.getBooks().subscribe(books=>{
       this.bookService.getPendingBooks().subscribe(pendings=>{
         books.push(...pendings);
-        console.log(books);
         var data=new Array();
         var binding;
         books.forEach(book=>{
@@ -94,7 +93,7 @@ export class StockAlertComponent implements OnInit {
           }
 
         })
-        this.tableDate=data;
+        this.tableData=data;
         this.source.load(data);
       })
     })
@@ -111,7 +110,9 @@ export class StockAlertComponent implements OnInit {
 
   stockFilter(event){
     if(event!="All"){
-      this.source.load(this.tableDate.filter(a=> a.stock<event));
+      this.source.load(this.tableData.filter(a=> a.stock<event && a.stock>=event-10));
+    }else{
+      this.source.load(this.tableData);
     }
   }
 

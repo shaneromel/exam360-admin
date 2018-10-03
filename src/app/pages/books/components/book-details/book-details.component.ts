@@ -6,6 +6,8 @@ import { BookService } from '../../../../services/book.service';
 import { ToastrService } from '../../../../../../node_modules/ngx-toastr';
 import {INgxMyDpOptions, IMyDateModel} from 'ngx-mydatepicker';
 import * as firebase from 'firebase';
+import { HttpClient } from '@angular/common/http';
+import * as globals from '../../../../globals';
 
 @Component({
   selector: 'ngx-book-details',
@@ -61,7 +63,7 @@ export class BookDetailsComponent implements OnInit {
 
   model: any = { date: { year: 2018, month: 10, day: 9 } };
 
-  constructor(private categoryService:CategoryService, private storage:AngularFireStorage, private bookService:BookService, private toaster:ToastrService) {
+  constructor(private categoryService:CategoryService, private storage:AngularFireStorage, private bookService:BookService, private toaster:ToastrService, private http:HttpClient) {
     this.images=new Array();
     this.special=false;
    }
@@ -305,8 +307,8 @@ export class BookDetailsComponent implements OnInit {
     // }).catch(err=>{
     //   this.toaster.error(err.message);
     // })
-    console.log(this.book);
     this.bookService.addPendingBook(this.book.id, this.book).then(()=>{
+      this.http.get<any>(globals.REST_API+"/set-product-urls");
       this.toaster.success("Book successfully updated!")
     }).catch(err=>{
       this.toaster.error(err.message);

@@ -1,16 +1,23 @@
 <nb-card>
   <nb-card-header>Banner</nb-card-header>
   <nb-card-body>
-      <div *ngFor="let banner of banners; index as i" class="form-group">
-        <button style="float:right;" *ngIf="i>0" (click)="deleteImage(i)" class="btn btn-hero-danger"><i class="far fa-trash-alt"></i></button>
-        <div class="col-md-6 offset-md-3">
-            <img class="img-fluid" [src]="banner.image">
+      <ng-container *ngFor="let banner of banners; index as i">
+        <div class="form-group">
+            <button style="float:right;" *ngIf="i>0" (click)="deleteImage(i)" class="btn btn-hero-danger"><i class="far fa-trash-alt"></i></button>
+            <div class="col-md-6 offset-md-3">
+                <img class="img-fluid" [src]="banner.image">
+            </div>
+            <div style="margin-top:10px; margin-bottom: 10px;" class="progress">
+                <div [ngClass]="banner.progressBarClass" role="progressbar" [ngStyle]="{'width':banner.uploadPercent+'%'}" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>          
+            <input type="file" (change)="uploadFile($event, i)">
         </div>
-        <div style="margin-top:10px; margin-bottom: 10px;" class="progress">
-            <div [ngClass]="banner.progressBarClass" role="progressbar" [ngStyle]="{'width':banner.uploadPercent+'%'}" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>          
-        <input type="file" (change)="uploadFile($event, i)">
-      </div>
+        <div class="form-group">
+            <label>Link: </label>
+            <input class="form-control" placeholder="Link" [(ngModel)]="banners[i].link">
+        </div>
+        <hr>
+      </ng-container>
       <button (click)="addBannerImage()" class="btn btn-hero-primary btn-block"><i class="fas fa-plus"></i></button>
       <button (click)="updateBanner()" class="btn btn-hero-success btn-block">Submit</button>
   </nb-card-body>

@@ -48,7 +48,8 @@ export class TinyMCEComponent {
       button:{
         title:"View",
         type:'custom',
-        renderComponent:ViewButtonComponent
+        renderComponent:ViewButtonComponent,
+        editable:false
       }
     },
     actions:{

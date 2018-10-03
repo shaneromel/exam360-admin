@@ -81,7 +81,8 @@ export class ManageBooksComponent implements OnInit {
       button:{
         title:"View",
         type:"custom",
-        renderComponent:ViewButtonComponent
+        renderComponent:ViewButtonComponent,
+        editable:false
       }
     },
     actions:{

@@ -5,28 +5,28 @@ import { finalize } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'ngx-banner',
-  templateUrl: './banner.component.html',
-  styleUrls: ['./banner.component.scss']
+  selector: 'ngx-footer-banner',
+  templateUrl: './footer-banner.component.html',
+  styleUrls: ['./footer-banner.component.scss']
 })
-export class BannerComponent implements OnInit {
+export class FooterBannerComponent implements OnInit {
 
   banners:any[];
 
-  constructor(private homeService:HomeService, private storage:AngularFireStorage, private toaster:ToastrService) { }
+  constructor(private homeService:HomeService, private  storage:AngularFireStorage, private toaster:ToastrService){ }
 
   ngOnInit() {
-    this.homeService.getHomeData().subscribe(home=>{
-      this.banners=home.banner.map(a=>{
+    this.homeService.getFooterBanner().subscribe(banners=>{
+      this.banners=banners.banners.map(a=>{
         var data={
           image:a.image,
-          uploadPercent:0,
+          link:a.link,
           progressBarClass:"progress-bar",
-          link:a.link
+          uploadPercent:0
         }
         return data;
-      });
-      console.log(this.banners);
+      })
+      console.log(banners);
     })
   }
 
@@ -64,7 +64,7 @@ export class BannerComponent implements OnInit {
     var banner=this.banners.map(a=>{
       return {image:a.image, link:a.link};
     });
-    this.homeService.updateBanner(banner).then(()=>{
+    this.homeService.updateFooterBanner(banner).then(()=>{
       this.toaster.success("Banner updated successfully!")
     }).catch(err=>{
       this.toaster.error(err.message);
