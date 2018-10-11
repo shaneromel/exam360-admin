@@ -151,12 +151,11 @@ export class AddBookComponent implements OnInit {
       genre:this.genre,
       timestamp:Date.now(),
       man_no:this.manNo,
-      man_name:this.manName
+      man_name:this.manName,
+      url:this.title.toLowerCase().replace(/ /g,"-")
     }
     
     this.bookService.addBook(data).then(()=>{
-
-      this.http.get<any>(globals.REST_API+"/set-product-urls");
 
       this.toaster.success("Book successfully added!");
     }).catch(err=>{

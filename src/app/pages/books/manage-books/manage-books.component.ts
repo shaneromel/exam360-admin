@@ -31,8 +31,8 @@ export class ManageBooksComponent implements OnInit {
       confirmDelete: true,
     },
     columns: {
-      id: {
-        title: 'ID',
+      sku: {
+        title: 'SKU ID',
         type: 'string',
         editable:false
       },
@@ -107,7 +107,6 @@ export class ManageBooksComponent implements OnInit {
       if(rowData){
         this.isSelected=true;
         this.book=rowData;
-        console.log(rowData)
       }else{
         this.isSelected=false;
         this.book=null;

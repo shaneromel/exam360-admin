@@ -150,8 +150,8 @@ export class BookDetailsComponent implements OnInit {
         this.pages=this.book.pages;
         this.model=this.book.publishing_date;
         this.genre=this.book.genre;
-        this.dhn=this.book.dhn;
-        this.sku=this.book.sku;
+        this.dhn=this.book.sku.substring(3,6);
+        this.sku=this.book.sku.substring(7);
         this.keywords=this.book.keywords;
         this.isbn=this.book.isbn;
         this.manNo=this.book.man_no;

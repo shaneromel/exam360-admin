@@ -13,7 +13,6 @@ export class ViewButtonComponent implements OnInit {
 
   constructor(private sharedService:SharedService) { 
     this.sharedService.bookIsSelected.subscribe(rowData=>{
-      console.log(rowData);
       this.isSelected=rowData ? true : false;
     })
   }
@@ -23,7 +22,6 @@ export class ViewButtonComponent implements OnInit {
   }
 
   onClick(){
-    console.log(this.isSelected);
     this.isSelected=!this.isSelected;
     this.sharedService.changeBookIsSelected(this.isSelected ? this.rowData : null);
   }
