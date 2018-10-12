@@ -132,6 +132,17 @@
                 </div>
                 <input (change)="uploadSoftCopy($event)" type="file">
               </div>
+              <div class="form-group col-md-6">
+                <label>Condition: </label>
+                <select [(ngModel)]="condition" class="form-control">
+                  <option>New</option>
+                  <option>Used</option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label>Weight: </label>
+                <input class="form-control" name="weight" [(ngModel)]="weight" placeholder="Weight">
+              </div>
               <div class="form-group col-md-12">
                 <label>Description: </label>
                 <textarea rows="10" class="form-control" [(ngModel)]="description" name="description"></textarea>

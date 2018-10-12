@@ -60,6 +60,8 @@ export class BookDetailsComponent implements OnInit {
   manNo:string;
   manName:string;
   reviews:any[];
+  condition:string;
+  weight:string;
 
   model: any = { date: { year: 2018, month: 10, day: 9 } };
 
@@ -156,6 +158,8 @@ export class BookDetailsComponent implements OnInit {
         this.isbn=this.book.isbn;
         this.manNo=this.book.man_no;
         this.manName=this.book.man_name;
+        this.condition=this.book.condition;
+        this.weight=this.book.weight;
       })
     }
   }
@@ -252,24 +256,24 @@ export class BookDetailsComponent implements OnInit {
       return;
     }
 
-    var data={
-      title:this.title,
-      category_id:this.category,
-      description:this.description,
-      exam360:this.exam360 ? 'Yes' : 'No', 
-      image:this.image.url,
-      price:this.price,
-      price_offer:this.priceOffer,
-      publication:this.publication,
-      special:this.special,
-      type:parseInt(this.type),
-      languages:this.languages,
-      edition:this.edition,
-      pages:this.pages,
-      publishing_date:this.date,
-      man_name:this.manName,
-      man_no:this.manNo
-    }
+    // var data={
+    //   title:this.title,
+    //   category_id:this.category,
+    //   description:this.description,
+    //   exam360:this.exam360 ? 'Yes' : 'No', 
+    //   image:this.image.url,
+    //   price:this.price,
+    //   price_offer:this.priceOffer,
+    //   publication:this.publication,
+    //   special:this.special,
+    //   type:parseInt(this.type),
+    //   languages:this.languages,
+    //   edition:this.edition,
+    //   pages:this.pages,
+    //   publishing_date:this.date,
+    //   man_name:this.manName,
+    //   man_no:this.manNo
+    // }
 
     this.book.title=this.title;
     this.book.author=this.author;
@@ -293,6 +297,8 @@ export class BookDetailsComponent implements OnInit {
     this.book.genre=this.genre;
     this.book.man_name=this.manName;
     this.book.man_no=this.manNo;
+    this.book.weight=this.weight;
+    this.book.condition=this.condition;
     this.updateBook();
     
   }
