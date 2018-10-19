@@ -65,19 +65,18 @@ export class InventoryComponent implements OnInit {
           var d={
             image:"<img height='50px' width='50px' src='"+book.image+"'>",
             sku:book.sku,
-            product:"<ul class='table-list'>"+
-            "<li>Product Name: "+book.title+"</li>"+
-            "<li>Languages: "+book.languages.toString()+"</li>"+
-            "<li>Publication: "+book.publication+"</li>"+
-            "<li>Author: "+book.author+"</li>"+
+            product:"<span>"+book.title+"</span><ul class='table-list'>"+
+            "<li>"+book.languages.toString()+"</li>"+
+            "<li>"+book.publication+"</li>"+
+            "<li>"+book.author+"</li>"+
             "</ul>",
             date:"<ul>"+
-            "<li>Date: "+(date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear())+"</li>"+
-            "<li>Time: "+date.getHours()+":"+date.getMinutes()+"</li>"+
+            "<li>"+(date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear())+"</li>"+
+            "<li>"+date.getHours()+":"+date.getMinutes()+"</li>"+
             "<ul>",
             stock:book.stock,
             mrp:"<ul>"+
-            "<li>MRP: ₹"+book.price_offer+"</li>"+
+            "<li>₹"+book.price_offer+"</li>"+
             "<li>Regular delivery: ₹"+book.shipping_cost.regular+"</li>"+
             "<li>Expedite delivery: ₹"+book.shipping_cost.fast_delivery+"</li>"+
             "</ul>",

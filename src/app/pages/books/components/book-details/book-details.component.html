@@ -1,11 +1,13 @@
 <nb-tabset>
     <nb-tab tabTitle="General Details">
-          <div style="margin-top: 10px;" class="col-md-2 offset-md-10">
-              <div class="input-group mb-3">
+          <div style="margin-top: 10px;" class="col-md-3 offset-md-9">
+              <div class="form-group">
+                <div class="input-group">
                   <input type="number" [(ngModel)]="stock" class="form-control" placeholder="Stock">
                   <div class="input-group-append">
-                    <button (click)="setStock()" class="btn btn-outline-secondary" type="button">Set</button>
+                    <button (click)="setStock()" class="btn btn-outline-secondary" type="button">Stock</button>
                   </div>
+              </div>
               </div>
           </div>
           <div style="margin-bottom: 10px;" class="col-md-4 offset-md-4">

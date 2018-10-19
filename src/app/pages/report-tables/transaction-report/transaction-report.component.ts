@@ -3,6 +3,8 @@ import { OrderService } from '../../../services/order.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Angular5Csv } from 'angular5-csv/Angular5-csv';
 
+import * as firebase from 'firebase';
+
 @Component({
   selector: 'ngx-transaction-report',
   templateUrl: './transaction-report.component.html',
@@ -35,14 +37,16 @@ export class TransactionReportComponent implements OnInit {
       sp:{
         title:"Selling Price"
       },
-      shipping_charge:{
-        title:"Shipping Price"
-      },
-      total:{
+      values:{
         title:"Total Values"
       },
+      buyer:{
+        title:"Buyer Details",
+        type:"html"
+      },
       status:{
-        title:"Shipping Status"
+        title:"Shipping Status",
+        type:"html"
       }
     }
   };
@@ -64,19 +68,29 @@ export class TransactionReportComponent implements OnInit {
         var data={
           date:date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear(),
           id:order.id,
-          status:order.status
+          status:order.status+" "+order.tracking_no
         } as any;
         order.cart.forEach(item=>{
           data.name=item.book.title;
           data.sku=item.book.sku;
           data.type=item.typeName;
           data.sp=item.book.price_offer;
-          data.shipping_charge=item.deliveryPrice;
+          data.values=item.book.price_offer+"+"+item.deliveryPrice;
           data.total=item.book.price_offer+item.deliveryPrice;
-          this.books.push(data);
+          firebase.firestore().doc("users/"+order.user_uid).get().then(doc=>{
+            if(doc.exists){
+              data.buyer="<ul>"+
+              "<li>"+doc.data().first_name+" "+doc.data().last_name+"</li>"+
+              "<li>"+doc.data().email+"</li>"+
+              "<li>"+doc.data().phone+"</li>"+
+              "</ul>";
+              this.books.push(data);
+              this.source.load(this.books);
+            }
+          })
+          
         })
       })
-      this.source.load(this.books);
     })
   }
 
@@ -97,7 +111,7 @@ export class TransactionReportComponent implements OnInit {
         var data={
           date:date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear(),
           id:order.id,
-          status:order.status
+          status:order.status+" "+order.tracking_no
         } as any;
         order.cart.forEach(item=>{
           data.name=item.book.title;
@@ -106,10 +120,20 @@ export class TransactionReportComponent implements OnInit {
           data.sp=item.book.price_offer;
           data.shipping_charge=item.deliveryPrice;
           data.total=item.book.price_offer+item.deliveryPrice;
-          this.books.push(data);
+          data.values=item.book.price_offer+"+"+item.deliveryPrice;
+          firebase.firestore().doc("users/"+order.user_uid).get().then(doc=>{
+            if(doc.exists){
+              data.buyer="<ul>"+
+              "<li>"+doc.data().first_name+" "+doc.data().last_name+"</li>"+
+              "<li>"+doc.data().email+"</li>"+
+              "<li>"+doc.data().phone+"</li>"+
+              "</ul>";
+              this.books.push(data);
+              this.source.load(this.books);
+            }
+          })
         })
       })
-      this.source.load(this.books);
       })
     }else{
       this.orderService.getOrders().subscribe(orders=>{
@@ -119,7 +143,7 @@ export class TransactionReportComponent implements OnInit {
           var data={
             date:date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear(),
             id:order.id,
-            status:order.status
+            status:order.status+" "+order.tracking_no
           } as any;
           order.cart.forEach(item=>{
             data.name=item.book.title;
@@ -128,10 +152,20 @@ export class TransactionReportComponent implements OnInit {
             data.sp=item.book.price_offer;
             data.shipping_charge=item.deliveryPrice;
             data.total=item.book.price_offer+item.deliveryPrice;
-            this.books.push(data);
+            data.values=item.book.price_offer+"+"+item.deliveryPrice;
+            firebase.firestore().doc("users/"+order.user_uid).get().then(doc=>{
+              if(doc.exists){
+                data.buyer="<ul>"+
+                "<li>"+doc.data().first_name+" "+doc.data().last_name+"</li>"+
+                "<li>"+doc.data().email+"</li>"+
+                "<li>"+doc.data().phone+"</li>"+
+                "</ul>";
+                this.books.push(data);
+                this.source.load(this.books);
+              }
+            })
           })
         })
-        this.source.load(this.books);
       })
     }
   }
@@ -152,7 +186,7 @@ export class TransactionReportComponent implements OnInit {
           var data={
             date:date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear(),
             id:order.id,
-            status:order.status
+            status:order.status+" "+order.tracking_no
           } as any;
           order.cart.forEach(item=>{
             data.name=item.book.title;
@@ -161,10 +195,20 @@ export class TransactionReportComponent implements OnInit {
             data.sp=item.book.price_offer;
             data.shipping_charge=item.deliveryPrice;
             data.total=item.book.price_offer+item.deliveryPrice;
-            this.books.push(data);
+            data.values=item.book.price_offer+"+"+item.deliveryPrice;
+            firebase.firestore().doc("users/"+order.user_uid).get().then(doc=>{
+              if(doc.exists){
+                data.buyer="<ul>"+
+                "<li>"+doc.data().first_name+" "+doc.data().last_name+"</li>"+
+                "<li>"+doc.data().email+"</li>"+
+                "<li>"+doc.data().phone+"</li>"+
+                "</ul>";
+                this.books.push(data);
+                this.source.load(this.books);
+              }
+            })
           })
         })
-        this.source.load(this.books);
     })
   }
 

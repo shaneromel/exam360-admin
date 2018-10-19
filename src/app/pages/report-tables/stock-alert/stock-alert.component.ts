@@ -75,12 +75,11 @@ export class StockAlertComponent implements OnInit {
               status:book.stock>0 ? book.is_active : "Out of stock",
               image:"<img height='50px' width='50px' src='"+book.image+"'>",
               sku:book.sku,
-              product:"<ul>"+
-              "<li>Product Name: "+book.title+"</li>"+
-              "<li>Languages: "+book.languages.toString()+"</li>"+
-              "<li>Binding: "+binding+"</li>"+
-              "<li>Publication: "+book.publication+"</li>"+
-              "<li>Author: "+book.author+"</li>"+
+              product:""+book.title+"<br><ul>"+
+              "<li>"+book.languages.toString()+"</li>"+
+              "<li>"+binding+"</li>"+
+              "<li>"+book.publication+"</li>"+
+              "<li>"+book.author+"</li>"+
               "</ul>",
               stock:book.stock,
               manufacturer:"<ul>"+
