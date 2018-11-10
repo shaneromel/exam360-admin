@@ -76,6 +76,16 @@ export class ManageBooksComponent implements OnInit {
             true:"Active",
             false:"Inactive"
           }
+        },
+        filter:{
+          type:"checkbox",
+          config:{
+            true:"Active",
+            false:"Inactive"
+          }
+        },
+        filterFunction:(cell,filter)=>{
+          return filter===cell;
         }
       },
       button:{
