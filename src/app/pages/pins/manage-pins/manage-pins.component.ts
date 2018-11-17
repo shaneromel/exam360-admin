@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { WINDOW } from '@ng-toolkit/universal';
+import { Component, OnInit , Inject} from '@angular/core';
 import { PinService } from '../../../services/pin.service';
 import { LocalDataSource } from '../../../../../node_modules/ng2-smart-table';
 import { ToastrService } from '../../../../../node_modules/ngx-toastr';
@@ -39,7 +40,7 @@ export class ManagePinsComponent implements OnInit {
   pins:any[];
   source:LocalDataSource=new LocalDataSource();
 
-  constructor(private pinService:PinService, private toaster:ToastrService) {
+  constructor(@Inject(WINDOW) private window: Window, private pinService:PinService, private toaster:ToastrService) {
     this.pins=new Array();
    }
 
@@ -56,7 +57,7 @@ export class ManagePinsComponent implements OnInit {
   }
 
   deletePin(event){
-    if(window.confirm("Are you sure you want to delete "+event.data.pin)){
+    if(this.window.confirm("Are you sure you want to delete "+event.data.pin)){
       this.pins.splice(this.pins.indexOf(event.data),1);
       this.pinService.updatePins(this.pins.map(a=>{return a.pin})).then(()=>{
         this.toaster.success("Pin successfully deleted!");

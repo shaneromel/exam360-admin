@@ -50,6 +50,8 @@ export class AddBookComponent implements OnInit {
   manNo:string;
   condition:string;
   weight:string;
+  code:string;
+  purchasingPrice:number;
 
   myOptions: INgxMyDpOptions = {
     // other options...
@@ -156,7 +158,9 @@ export class AddBookComponent implements OnInit {
       man_name:this.manName,
       url:this.title.toLowerCase().replace(/ /g,"-"),
       condition:this.condition,
-      weight:this.weight
+      weight:this.weight,
+      purchasing_price:this.purchasingPrice,
+      code:this.code
     }
     
     this.bookService.addBook(data).then(()=>{

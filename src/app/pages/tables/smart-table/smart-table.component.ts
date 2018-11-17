@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { WINDOW } from '@ng-toolkit/universal';
+import { Component , Inject} from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { UserService } from '../../../services/user.service';
 import { ToastrService } from '../../../../../node_modules/ngx-toastr';
@@ -63,12 +64,12 @@ export class SmartTableComponent {
   user:any;
   isSelected:boolean;
 
-  constructor(private userService:UserService, private toaster:ToastrService) {
+  constructor(@Inject(WINDOW) private window: Window, private userService:UserService, private toaster:ToastrService) {
     this.isSelected=false;
   }
 
   onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
+    if (this.window.confirm('Are you sure you want to delete?')) {
       this.userService.deleteUser(event.data.uid).subscribe(response=>{
         if(response.code==="success"){
           this.toaster.success("User successfully deleted!");

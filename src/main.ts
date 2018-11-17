@@ -1,3 +1,4 @@
+import { AppBrowserModule } from '.././src/app/app.browser.module';
 /**
  * @license
  * Copyright Akveo. All Rights Reserved.
@@ -13,5 +14,5 @@ if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule)
+platformBrowserDynamic().bootstrapModule(AppBrowserModule)
   .catch(err => console.error(err));

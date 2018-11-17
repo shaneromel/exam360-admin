@@ -80,6 +80,10 @@
                 </div>
               </div>
               <div class="form-group col-md-6">
+                <label>Book code: </label>
+                <input class="form-control" placeholder="Book Code" name="code" [(ngModel)]="code">
+              </div>
+              <div class="form-group col-md-6">
                 <label>Publication: </label>
                 <input class="form-control" placeholder="Publication" name="publication" [(ngModel)]="publication">
               </div>
@@ -118,6 +122,15 @@
                   </div>
               </div>
               <div class="form-group col-md-6">
+                <label>Purchasing Price: </label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="purchasing">&#8377;</span>
+                    </div>
+                    <input type="text" name="purchasing" [(ngModel)]="purchasingPrice" class="form-control" placeholder="Purchasing Price" aria-describedby="purchasing">
+                </div>
+              </div>
+              <div class="form-group col-md-6">
                 <label>Type: </label>
                 <select [(ngModel)]="type" name="type" class="form-control">
                     <option value="1">Paperback and Soft copy</option>
@@ -134,7 +147,7 @@
               </div>
               <div class="form-group col-md-6">
                 <label>Condition: </label>
-                <select [(ngModel)]="condition" class="form-control">
+                <select [(ngModel)]="condition" name="condition" class="form-control">
                   <option>New</option>
                   <option>Used</option>
                 </select>

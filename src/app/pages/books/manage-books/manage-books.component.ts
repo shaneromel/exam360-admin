@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { WINDOW } from '@ng-toolkit/universal';
+import { Component, OnInit , Inject} from '@angular/core';
 import { BookService } from '../../../services/book.service';
 import { LocalDataSource } from '../../../../../node_modules/ng2-smart-table';
 import { ToastrService } from '../../../../../node_modules/ngx-toastr';
@@ -107,7 +108,7 @@ export class ManageBooksComponent implements OnInit {
   book:any;
   pendingBooks:any[];
 
-  constructor(private bookService:BookService, private toaster:ToastrService, private sharedService:SharedService) { 
+  constructor(@Inject(WINDOW) private window: Window, private bookService:BookService, private toaster:ToastrService, private sharedService:SharedService) { 
     this.isSelected=false;
   }
 
@@ -179,7 +180,7 @@ export class ManageBooksComponent implements OnInit {
   }
 
   deleteBook(event){
-    if(window.confirm("Are you sure you want to delete "+event.data.title+"?")){
+    if(this.window.confirm("Are you sure you want to delete "+event.data.title+"?")){
       console.log(event.data);
 
       if(event.data.is_active==="Active"){

@@ -1,9 +1,10 @@
+import { NgtUniversalModule } from '@ng-toolkit/universal';
 /**
  * @license
  * Copyright Akveo. All Rights Reserved.
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
-import { APP_BASE_HREF } from '@angular/common';
+import { APP_BASE_HREF , CommonModule} from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
@@ -28,8 +29,11 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent],
-  imports: [
-    BrowserModule,
+  imports:[
+ CommonModule,
+NgtUniversalModule,
+ 
+    
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
@@ -43,7 +47,6 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
     ToastrModule.forRoot(),
     AngularFireStorageModule
   ],
-  bootstrap: [AppComponent],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },AuthGuard, AuthService, UserService
   ],

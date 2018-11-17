@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { WINDOW } from '@ng-toolkit/universal';
+import { Component, OnInit , Inject} from '@angular/core';
 import { CategoryService } from '../../../services/category.service';
 import { LocalDataSource } from '../../../../../node_modules/ng2-smart-table';
 import { ToastrService } from '../../../../../node_modules/ngx-toastr';
@@ -52,7 +53,7 @@ export class ManageCategoriesComponent implements OnInit {
   categories:any[];
   source:LocalDataSource=new LocalDataSource();
 
-  constructor(private categoryService:CategoryService, private toaster:ToastrService, private http:HttpClient) { }
+  constructor(@Inject(WINDOW) private window: Window, private categoryService:CategoryService, private toaster:ToastrService, private http:HttpClient) { }
 
   ngOnInit() {
     this.categoryService.getCategories().subscribe(categories=>{
@@ -71,7 +72,7 @@ export class ManageCategoriesComponent implements OnInit {
   }
 
   deleteCategory(event){
-    if(window.confirm("Are you sure you want to delete category "+event.data.title+"?")){
+    if(this.window.confirm("Are you sure you want to delete category "+event.data.title+"?")){
       this.categoryService.deleteCategory(event.data.id).then(()=>{
         this.toaster.success("Category successfully deleted!");
       }).catch(err=>{

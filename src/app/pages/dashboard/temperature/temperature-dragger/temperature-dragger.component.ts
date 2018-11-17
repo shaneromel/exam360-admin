@@ -1,3 +1,5 @@
+import { Inject } from '@angular/core';
+import { WINDOW } from '@ng-toolkit/universal';
 import {
   Component, HostListener, ViewChild, ElementRef, Input, Output, EventEmitter, AfterViewInit, OnChanges,
 } from '@angular/core';
@@ -75,7 +77,7 @@ export class TemperatureDraggerComponent implements AfterViewInit, OnChanges {
   private isMouseDown = false;
   private init = false;
 
-  constructor() {
+  constructor(@Inject(WINDOW) private window: Window, ) {
     this.oldValue = this.value;
   }
 

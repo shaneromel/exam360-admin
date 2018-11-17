@@ -62,6 +62,8 @@ export class BookDetailsComponent implements OnInit {
   reviews:any[];
   condition:string;
   weight:string;
+  purchasingPrice:number;
+  code:string;
 
   model: any = { date: { year: 2018, month: 10, day: 9 } };
 
@@ -160,6 +162,8 @@ export class BookDetailsComponent implements OnInit {
         this.manName=this.book.man_name;
         this.condition=this.book.condition;
         this.weight=this.book.weight;
+        this.purchasingPrice=this.book.purchasing_price;
+        this.code=this.book.code;
       })
     }
   }
@@ -299,6 +303,8 @@ export class BookDetailsComponent implements OnInit {
     this.book.man_no=this.manNo;
     this.book.weight=this.weight;
     this.book.condition=this.condition;
+    this.book.purchasing_price=this.purchasingPrice;
+    this.book.code=this.code;
     this.updateBook();
     
   }

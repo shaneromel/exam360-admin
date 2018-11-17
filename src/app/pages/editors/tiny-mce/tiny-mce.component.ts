@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { WINDOW } from '@ng-toolkit/universal';
+import { Component , Inject} from '@angular/core';
 import { OrderService } from '../../../services/order.service';
 import { LocalDataSource } from '../../../../../node_modules/ng2-smart-table';
 import { ToastrService } from '../../../../../node_modules/ngx-toastr';
@@ -131,7 +132,7 @@ export class TinyMCEComponent {
   canceledSource:LocalDataSource=new LocalDataSource();
   canceledOrders:any[];
 
-  constructor(private orderService:OrderService, private toaster:ToastrService, private sharedService:SharedService, private userService:UserService){
+  constructor(@Inject(WINDOW) private window: Window, private orderService:OrderService, private toaster:ToastrService, private sharedService:SharedService, private userService:UserService){
     this.isSelected=false;
     
   }
@@ -198,7 +199,7 @@ export class TinyMCEComponent {
     }
   }
   deleteOrder(event){
-    if(window.confirm("Are you sure you want to delete the order?")){
+    if(this.window.confirm("Are you sure you want to delete the order?")){
       this.orderService.deleteOrder(event.data.id).then(()=>{
         this.toaster.success("Order successfully deleted!");
       }).catch(err=>{
