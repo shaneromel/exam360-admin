@@ -51,7 +51,7 @@ export class AddBookComponent implements OnInit {
   condition:string;
   weight:string;
   code:string;
-  purchasingPrice:number;
+  purchasingPrice:string;
 
   myOptions: INgxMyDpOptions = {
     // other options...
@@ -159,7 +159,7 @@ export class AddBookComponent implements OnInit {
       url:this.title.toLowerCase().replace(/ /g,"-"),
       condition:this.condition,
       weight:this.weight,
-      purchasing_price:this.purchasingPrice,
+      purchasing_price:parseInt(this.purchasingPrice),
       code:this.code
     }
     
