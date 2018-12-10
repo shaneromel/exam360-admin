@@ -18,7 +18,23 @@ export class StockAlertComponent implements OnInit {
     columns:{
       status:{
         title:"Status",
-        type:"text"
+        editor:{
+          type:"checkbox",
+          config:{
+            true:"Active",
+            false:"Inactive"
+          }
+        },
+        filter:{
+          type:"checkbox",
+          config:{
+            true:"Active",
+            false:"Inactive"
+          }
+        },
+        filterFunction:(cell,filter)=>{
+          return filter===cell;
+        }
       },
       image:{
         title:"Image",

@@ -154,7 +154,6 @@ export class ManageBooksComponent implements OnInit {
     //   this.toaster.error(err.message);
     //   event.confirm.reject();
     // });
-    console.log(event);
     if(event.newData.is_active==="Inactive"){
       this.bookService.deleteBook(event.data.id).then(()=>{
         this.bookService.addPendingBook(event.data.id,event.newData).then(()=>{
@@ -181,8 +180,7 @@ export class ManageBooksComponent implements OnInit {
 
   deleteBook(event){
     if(this.window.confirm("Are you sure you want to delete "+event.data.title+"?")){
-      console.log(event.data);
-
+  
       if(event.data.is_active==="Active"){
         this.bookService.deleteBook(event.data.id).then(()=>{
           this.toaster.success("Book successfully deleted!")

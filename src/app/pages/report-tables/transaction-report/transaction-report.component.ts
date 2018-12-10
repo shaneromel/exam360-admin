@@ -23,7 +23,11 @@ export class TransactionReportComponent implements OnInit {
         title:"Date"
       },
       id:{
-        title:"Order ID"
+        title:"Order ID",
+        type:"html",
+        valuePrepareFunction:(cell,row)=>{
+          return '<a href="/#/pages/orders/manage-orders;id='+cell+'" target="_blank">'+row.id+'</a>';
+        }
       },
       name:{
         title:"Product Name"
@@ -106,34 +110,35 @@ export class TransactionReportComponent implements OnInit {
     if(event!="all" && event!="manual"){
       this.orderService.getOrdersTimestamp(Date.now()-parseInt(event)*dayTimestamp).subscribe(orders=>{
         this.books=new Array();
-      orders.forEach(order=>{
-        var date=new Date(order.timestamp);
-        var data={
-          date:date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear(),
-          id:order.id,
-          status:order.status+" "+order.tracking_no
-        } as any;
-        order.cart.forEach(item=>{
-          data.name=item.book.title;
-          data.sku=item.book.sku;
-          data.type=item.typeName;
-          data.sp=item.book.price_offer;
-          data.shipping_charge=item.deliveryPrice;
-          data.total=item.book.price_offer+item.deliveryPrice;
-          data.values=item.book.price_offer+"+"+item.deliveryPrice;
-          firebase.firestore().doc("users/"+order.user_uid).get().then(doc=>{
-            if(doc.exists){
-              data.buyer="<ul>"+
-              "<li>"+doc.data().first_name+" "+doc.data().last_name+"</li>"+
-              "<li>"+doc.data().email+"</li>"+
-              "<li>"+doc.data().phone+"</li>"+
-              "</ul>";
-              this.books.push(data);
-              this.source.load(this.books);
-            }
+        this.source.load(this.books);
+        orders.forEach(order=>{
+          var date=new Date(order.timestamp);
+          var data={
+            date:date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear(),
+            id:order.id,
+            status:order.status+" "+order.tracking_no
+          } as any;
+          order.cart.forEach(item=>{
+            data.name=item.book.title;
+            data.sku=item.book.sku;
+            data.type=item.typeName;
+            data.sp=item.book.price_offer;
+            data.shipping_charge=item.deliveryPrice;
+            data.total=item.book.price_offer+item.deliveryPrice;
+            data.values=item.book.price_offer+"+"+item.deliveryPrice;
+            firebase.firestore().doc("users/"+order.user_uid).get().then(doc=>{
+              if(doc.exists){
+                data.buyer="<ul>"+
+                "<li>"+doc.data().first_name+" "+doc.data().last_name+"</li>"+
+                "<li>"+doc.data().email+"</li>"+
+                "<li>"+doc.data().phone+"</li>"+
+                "</ul>";
+                this.books.push(data);
+                this.source.load(this.books);
+              }
+            })
           })
         })
-      })
       })
     }else{
       this.orderService.getOrders().subscribe(orders=>{

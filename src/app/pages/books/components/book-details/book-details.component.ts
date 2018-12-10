@@ -129,7 +129,7 @@ export class BookDetailsComponent implements OnInit {
         this.title=this.book.title;
         this.author=this.book.author;
         
-        this.exam360=this.book.exam360;
+        this.exam360=this.book.exam360==="Yes" ? true : false;
         this.publication=this.book.publication;
         this.price=this.book.price;
         this.priceOffer=this.book.price_offer;
@@ -285,6 +285,9 @@ export class BookDetailsComponent implements OnInit {
     this.book.description=this.description;
     this.book.exam360=this.exam360 ? 'Yes' : 'No';
     this.book.image=this.image.url;
+    if(this.book.image!=this.book.images[0]){
+      this.book.images.unshift(this.book.image);
+    }
     this.book.price=this.price;
     this.book.price_offer=this.priceOffer;
     this.book.publication=this.publication;
@@ -336,7 +339,11 @@ export class BookDetailsComponent implements OnInit {
     this.book.images=this.images.map(a=>{
       return a.image;
     })
-    
+
+    if(this.book.image!=this.book.images[0]){
+      this.book.images.unshift(this.book.image);
+    }
+     
     this.updateBook();
   }
 

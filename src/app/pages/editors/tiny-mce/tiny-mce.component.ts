@@ -9,6 +9,7 @@ import { ImagesComponent } from '../components/images/images.component';
 import { UserService } from '../../../services/user.service';
 import { OrderIdComponent } from '../components/order-id/order-id.component';
 import { ProductDetailsComponent } from '../components/product-details/product-details.component';
+import { ActivatedRoute } from '@angular/router';
 
 declare var $:any;
 
@@ -132,7 +133,7 @@ export class TinyMCEComponent {
   canceledSource:LocalDataSource=new LocalDataSource();
   canceledOrders:any[];
 
-  constructor(@Inject(WINDOW) private window: Window, private orderService:OrderService, private toaster:ToastrService, private sharedService:SharedService, private userService:UserService){
+  constructor(@Inject(WINDOW) private window: Window, private orderService:OrderService, private toaster:ToastrService, private sharedService:SharedService, private userService:UserService, private rout:ActivatedRoute){
     this.isSelected=false;
     
   }
@@ -142,6 +143,7 @@ export class TinyMCEComponent {
   }
 
   ngOnInit(){
+
     this.sharedService.orderIsSelected.subscribe(rowData=>{
       if(rowData){
         this.isSelected=true;
@@ -157,6 +159,13 @@ export class TinyMCEComponent {
         a.date=date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
         a.total=a.subTotal+"+"+a.shippingRate
         return a;
+      });
+
+      this.rout.params.subscribe(params=>{
+        if(params['id']){
+          this.isSelected=true;
+          this.order=orders.filter(a=>a.id===params['id'])[0];
+        }
       });
 
       this.unshippedOrders=orders.filter(a=>a.status!="Shipped" && a.status!="Canceled");
