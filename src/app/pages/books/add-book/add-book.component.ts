@@ -66,7 +66,7 @@ export class AddBookComponent implements OnInit {
   constructor(private categoryService:CategoryService, private storage:AngularFireStorage, private bookService:BookService, private toaster:ToastrService, private http:HttpClient) {
     this.special=false;
     this.images=[{
-      url:"http://newfoundlandsportsman.com/wp-content/uploads/2013/11/dummy-image-landscape.jpg",
+      url:globals.defaultImg,
       progressBarClass:"progress-bar",
       uploadPercent:0
     }]
@@ -107,7 +107,7 @@ export class AddBookComponent implements OnInit {
 
   addImage(){
     this.images.push({
-      url:"http://newfoundlandsportsman.com/wp-content/uploads/2013/11/dummy-image-landscape.jpg",
+      url:globals.defaultImg,
       uploadPercent:0,
       progressBarClass:"progress-bar"
     })

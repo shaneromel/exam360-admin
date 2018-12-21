@@ -70,6 +70,9 @@ const routes: Routes = [{
   },{
     path:"report-tables",
     loadChildren:"./report-tables/report-tables.module#ReportTablesModule"
+  },{
+    path:"notifications",
+    loadChildren:"./notifications/notifications.module#NotificationsModule"
   }, {
     path: '',
     redirectTo: 'dashboard',

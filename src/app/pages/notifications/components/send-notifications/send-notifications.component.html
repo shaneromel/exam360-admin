@@ -1,0 +1,19 @@
+<nb-card>
+  <nb-card-header>Send Notification</nb-card-header>
+  <nb-card-body>
+    <form (ngSubmit)="sendNotification()" >
+      <div class="form-group">
+        <label>Title: </label>
+        <input class="form-control" type="text" placeholder="Title" name="title" [(ngModel)]="title">
+      </div>
+      <div class="form-group">
+        <label>Body: </label>
+        <input class="form-control" placeholder="Body" name="body" [(ngModel)]="body">
+      </div>
+      <button *ngIf="title && body;else disabled" class="btn btn-success btn-block">Submit</button>
+      <ng-template #disabled>
+        <button type="button" class="btn btn-success btn-block disabled">Submit</button>
+      </ng-template>
+    </form>
+  </nb-card-body>
+</nb-card>

@@ -106,21 +106,21 @@
                   <input class="form-control" placeholder="Number of pages" name="publication" type="number" [(ngModel)]="pages">
               </div>
               <div class="form-group col-md-6">
-                <label>Price: </label>
+                <label>MRP: </label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="price">&#8377;</span>
                     </div>
-                    <input type="text" name="price" [(ngModel)]="price" class="form-control" placeholder="Price" aria-describedby="price">
+                    <input type="text" name="price" [(ngModel)]="price" class="form-control" placeholder="MRP" aria-describedby="price">
                 </div>
               </div>
               <div class="form-group col-md-6">
-                  <label>Offer Price: </label>
+                  <label>Selling Price: </label>
                   <div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="price_offer">&#8377;</span>
                       </div>
-                      <input type="text" name="price_offer" [(ngModel)]="priceOffer" class="form-control" placeholder="Offer Price" aria-describedby="price_offer">
+                      <input type="text" name="price_offer" [(ngModel)]="priceOffer" class="form-control" placeholder="Selling Price" aria-describedby="price_offer">
                   </div>
               </div>
               <div class="form-group col-md-6">
@@ -133,7 +133,7 @@
                 </div>
               </div>
               <div class="form-group col-md-6">
-                <label>Type: </label>
+                <label>Book type: </label>
                 <select [(ngModel)]="type" name="type" class="form-control">
                     <option value="1">Paperback and Soft copy</option>
                     <option value="2">Soft copy</option>
@@ -196,7 +196,7 @@
           <h1>Shipping Rates: </h1>
           <hr>
           <div class="form-group">
-              <label>Regular Delivery</label>
+              <label>Standard Delivery</label>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon1">&#8377;</span>
@@ -205,7 +205,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label>Fast Delivery</label>
+              <label>Expedite Delivery</label>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon1">&#8377;</span>

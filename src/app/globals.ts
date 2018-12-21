@@ -1,1 +1,2 @@
 export var REST_API="https://exam360-admin.herokuapp.com";
+export var defaultImg="https://firebasestorage.googleapis.com/v0/b/exam360-2d6ff.appspot.com/o/dummy-image-landscape.jpg?alt=media&token=374fa106-b54c-458c-bdd3-d7ad23331ed2";

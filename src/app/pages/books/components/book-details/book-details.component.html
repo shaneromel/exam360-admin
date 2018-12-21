@@ -109,7 +109,7 @@
                         <input class="form-control" placeholder="Number of pages" name="pages" type="number" [(ngModel)]="pages">
                     </div>
                   <div class="form-group col-md-6">
-                    <label>Price: </label>
+                    <label>MRP: </label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                           <span class="input-group-text" id="price">&#8377;</span>
@@ -118,7 +118,7 @@
                     </div>
                   </div>
                   <div class="form-group col-md-6">
-                      <label>Offer Price: </label>
+                      <label>Selling Price: </label>
                       <div class="input-group mb-3">
                           <div class="input-group-prepend">
                             <span class="input-group-text" id="price_offer">&#8377;</span>
@@ -136,7 +136,7 @@
                     </div>
                   </div>
                   <div class="form-group col-md-6">
-                    <label>Type: </label>
+                    <label>Book Type: </label>
                     <select [(ngModel)]="type" name="type" class="form-control">
                         <option value="1">Both</option>
                         <option value="2">PDF</option>
@@ -144,12 +144,12 @@
                     </select>
                   </div>
                   <div *ngIf="type!='3'" class="form-group col-md-6">
-                    <label>Soft copy: </label>
-                    <span style="margin-bottom: 5px; display:block;">View the soft copy <a target="blank" href="{{softCopy?.url}}">here</a></span>
+                    <label>PDF: </label>
+                    <span *ngIf="softCopy?.url" style="margin-bottom: 5px; display:block;">View the soft copy <a target="blank" href="{{softCopy?.url}}">here</a></span>
                     <div style="margin-bottom: 10px;" class="progress">
                       <div [ngClass]="softCopy.progressBarClass" [ngStyle]="{'width':softCopy.uploadPercent+'%'}" role="progressbar" aria-valuemax="100">{{softCopy.uploadPercent | number:'0.0-0'}}%</div>
                     </div>
-                    <input (change)="uploadSoftCopy($event)" type="file">
+                    <input (change)="uploadSoftCopy($event)" type="file" accept="application/pdf">
                   </div>
                   <div class="form-group col-md-6">
                     <label>Condition: </label>
@@ -205,7 +205,7 @@
     <nb-tab tabTitle="Shipping charges">
       <form (ngSubmit)="setShippingCharges()" >
         <div class="form-group">
-          <label>Regular Delivery</label>
+          <label>Standard Delivery</label>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon1">&#8377;</span>
@@ -214,7 +214,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label>Fast Delivery</label>
+          <label>Expedite Delivery</label>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon1">&#8377;</span>

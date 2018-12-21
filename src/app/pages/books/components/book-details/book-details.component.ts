@@ -247,7 +247,7 @@ export class BookDetailsComponent implements OnInit {
 
   addImage(){
     this.images.push({
-      image:"http://newfoundlandsportsman.com/wp-content/uploads/2013/11/dummy-image-landscape.jpg",
+      image:globals.defaultImg,
       uploadPercent:0,
       progressBarClass:"progress-bar"
     })

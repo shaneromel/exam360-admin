@@ -89,6 +89,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title:"Manage PINs",
         link:"/pages/pins/manage-pins"
+      },
+      {
+        title:"Send Notifications",
+        link:"/pages/notifications/send-notifications"
       }
     ]
   },
