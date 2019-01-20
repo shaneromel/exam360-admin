@@ -10,6 +10,7 @@ import { AddBookComponent } from './add-book/add-book.component';
 import { NgxMyDatePickerModule } from 'ngx-mydatepicker';
 import { TagInputModule } from 'ngx-chips';
 import { ViewButtonComponent } from './components/view-button/view-button.component';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 @NgModule({
   imports: [
@@ -19,7 +20,9 @@ import { ViewButtonComponent } from './components/view-button/view-button.compon
     SharedModule,
     AngularFireStorageModule,
     NgxMyDatePickerModule.forRoot(),
-    TagInputModule
+    TagInputModule,
+    FroalaEditorModule.forRoot(), 
+    FroalaViewModule.forRoot()
   ],
   entryComponents:[ViewButtonComponent],
   declarations: [ManageBooksComponent, BookDetailsComponent, AddBookComponent, ViewButtonComponent],

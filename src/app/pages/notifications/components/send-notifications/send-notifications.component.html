@@ -10,6 +10,14 @@
         <label>Body: </label>
         <input class="form-control" placeholder="Body" name="body" [(ngModel)]="body">
       </div>
+      <div class="form-group">
+        <label>Image Link: </label>
+        <input class="form-control" placeholder="Image Link" name="image" [(ngModel)]="image">
+      </div>
+      <div class="form-group">
+        <label>Link: </label>
+        <input class="form-control" placeholder="Link" name="link" [(ngModel)]="link">
+      </div>
       <button *ngIf="title && body;else disabled" class="btn btn-success btn-block">Submit</button>
       <ng-template #disabled>
         <button type="button" class="btn btn-success btn-block disabled">Submit</button>

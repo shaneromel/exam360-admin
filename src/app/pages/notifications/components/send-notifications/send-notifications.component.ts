@@ -11,8 +11,13 @@ export class SendNotificationsComponent implements OnInit {
 
   title:string;
   body:string;
+  image:string;
+  link:string;
 
-  constructor(private http:HttpClient, private toaster:ToastrService) { }
+  constructor(private http:HttpClient, private toaster:ToastrService) {
+    this.image="https://firebasestorage.googleapis.com/v0/b/exam360-2d6ff.appspot.com/o/icon-192x192.png?alt=media&token=4435d789-f769-42e1-8ab4-efb3ef5b1615";
+    this.link="https://exam360.in";
+   }
 
   ngOnInit() {
   }
@@ -27,7 +32,8 @@ export class SendNotificationsComponent implements OnInit {
         "notification": {
           "title": this.title,
           "body": this.body,
-          "icon":"https://firebasestorage.googleapis.com/v0/b/exam360-2d6ff.appspot.com/o/icon-192x192.png?alt=media&token=4435d789-f769-42e1-8ab4-efb3ef5b1615"
+          "icon":this.image,
+          "click_action":this.link
         },
       "project_id":"exam360-2d6ff"
     }

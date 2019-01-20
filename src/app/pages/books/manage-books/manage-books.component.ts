@@ -6,6 +6,7 @@ import { ToastrService } from '../../../../../node_modules/ngx-toastr';
 import * as firebase from 'firebase';
 import { SharedService } from '../../../services/shared.service';
 import { ViewButtonComponent } from '../components/view-button/view-button.component';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'ngx-manage-books',
@@ -108,7 +109,7 @@ export class ManageBooksComponent implements OnInit {
   book:any;
   pendingBooks:any[];
 
-  constructor(@Inject(WINDOW) private window: Window, private bookService:BookService, private toaster:ToastrService, private sharedService:SharedService) { 
+  constructor(@Inject(WINDOW) private window: Window, private bookService:BookService, private toaster:ToastrService, private sharedService:SharedService, private http:HttpClient) { 
     this.isSelected=false;
   }
 
@@ -168,7 +169,30 @@ export class ManageBooksComponent implements OnInit {
     }else{
       this.bookService.deletePendingBook(event.data.id).then(()=>{
         this.bookService.setBook(event.data.id, event.newData).then(()=>{
-          this.toaster.success("Book successfully updated!")
+
+          let headers = new HttpHeaders().set('Content-Type', 'application/json')
+                               .set('authorization',"key=AAAACkszhu0:APA91bFed3TkVNE1A55VXrZMQq4gyA5Vn7C53b4kHZjQPICHbA0YsXZyA-0fZ0jjpd9Dj1whT05ooECbIT3aSTrgpzA6CKuvuIVlWGUvucKWXsiN3jUkHkBmHI5TerRBmrSVDp0yOX82yhcFthGgV8Bfgqz_L08Qlg");
+
+          var data={
+            "to": "/topics/all",
+              "notification": {
+                "title": event.newData.title,
+                "body": event.newData.description,
+                "icon":event.newData.image,
+                "click_action":`https://exam360.in/book/${event.newData.url}`
+              },
+            "project_id":"exam360-2d6ff"
+          }
+
+          this.http.post<any>("https://fcm.googleapis.com/fcm/send",data,{headers:headers}).subscribe(response=>{
+            if(response.message_id){
+              this.toaster.success("Book successfully updated!")
+            }else{
+              this.toaster.error("There was some error sending the notification.","Error")
+            }
+          })
+
+          
         }).catch(err=>{
           this.toaster.error(err.message);
         })

@@ -160,7 +160,8 @@
               </div>
               <div class="form-group col-md-12">
                 <label>Description: </label>
-                <textarea rows="10" class="form-control" [(ngModel)]="description" name="description"></textarea>
+                <!-- <textarea rows="10" class="form-control" [(ngModel)]="description" name="description"></textarea> -->
+                <div [(ngModel)]="description" [froalaEditor]></div>
               </div>
               <div class="form-group col-md-6">
                   <nb-checkbox name="exclusive" [(ngModel)]="exam360" status="success" class="col-sm-4">Exam 360 exclusive</nb-checkbox>
