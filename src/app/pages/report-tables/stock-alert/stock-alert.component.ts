@@ -42,7 +42,10 @@ export class StockAlertComponent implements OnInit {
       },
       sku:{
         title:"SKU ID",
-        type:"text"
+        type:"html",
+        valuePrepareFunction:(cell, row)=>{
+          return `<a href=\'/#/pages/books/manage-books;id=${row.id}\' target="_blank">${cell}</a>`;
+        }
       },
       product:{
         title:"Product Name, Language, Binding, Publication, Author",
@@ -102,7 +105,8 @@ export class StockAlertComponent implements OnInit {
               "<li>Name: "+book.man_name+"</li>"+
               "<li>Contact number: "+book.man_no+"</li>"+
               "</ul>",
-              isbn:book.isbn
+              isbn:book.isbn,
+              id:book.id
             }
             data.push(d);
           }

@@ -7,6 +7,7 @@ import * as firebase from 'firebase';
 import { SharedService } from '../../../services/shared.service';
 import { ViewButtonComponent } from '../components/view-button/view-button.component';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-manage-books',
@@ -109,11 +110,20 @@ export class ManageBooksComponent implements OnInit {
   book:any;
   pendingBooks:any[];
 
-  constructor(@Inject(WINDOW) private window: Window, private bookService:BookService, private toaster:ToastrService, private sharedService:SharedService, private http:HttpClient) { 
+  constructor(@Inject(WINDOW) private window: Window, private bookService:BookService, private toaster:ToastrService, private sharedService:SharedService, private http:HttpClient, private route:ActivatedRoute) { 
     this.isSelected=false;
   }
 
   ngOnInit() {
+
+    this.route.params.subscribe(params=>{
+      if(params['id']){
+        this.bookService.getBookById(params['id']).subscribe(book=>{
+          this.book=book;
+          this.isSelected=true;
+        })
+      }
+    })
 
     this.sharedService.bookIsSelected.subscribe(rowData=>{
       if(rowData){

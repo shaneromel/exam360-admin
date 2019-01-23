@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../../services/order.service';
-import { LocalDataSource } from 'ng2-smart-table';
+import { LocalDataSource, Cell } from 'ng2-smart-table';
 import { Angular5Csv } from 'angular5-csv/Angular5-csv';
 
 import * as firebase from 'firebase';
@@ -30,7 +30,11 @@ export class TransactionReportComponent implements OnInit {
         }
       },
       name:{
-        title:"Product Name"
+        title:"Product Name",
+        type:"html",
+        valuePrepareFunction:(cell, row)=>{
+          return `<a href=\'/#/pages/books/manage-books;id=${row.book_id}\' target="_blank">${cell}</a>`;
+        }
       },
       sku:{
         title:"SKU ID"
@@ -46,7 +50,10 @@ export class TransactionReportComponent implements OnInit {
       },
       buyer:{
         title:"Buyer Details",
-        type:"html"
+        type:"html",
+        valuePrepareFunction:(cell, row)=>{
+          return `<ul><li>${cell.first_name} ${cell.last_name}</li><li>${cell.email}</li><li>${cell.phone}</li></ul>`
+        }
       },
       status:{
         title:"Shipping Status",
@@ -81,13 +88,17 @@ export class TransactionReportComponent implements OnInit {
           data.sp=item.book.price_offer;
           data.values=item.book.price_offer+"+"+item.deliveryPrice;
           data.total=item.book.price_offer+item.deliveryPrice;
+          data.book_id=item.book_id;
           firebase.firestore().doc("users/"+order.user_uid).get().then(doc=>{
             if(doc.exists){
-              data.buyer="<ul>"+
-              "<li>"+doc.data().first_name+" "+doc.data().last_name+"</li>"+
-              "<li>"+doc.data().email+"</li>"+
-              "<li>"+doc.data().phone+"</li>"+
-              "</ul>";
+
+              data.buyer={
+                first_name:doc.data().first_name,
+                last_name:doc.data().last_name,
+                email:doc.data().email,
+                phone:doc.data().phone
+              }
+
               this.books.push(data);
               this.source.load(this.books);
             }
@@ -100,9 +111,18 @@ export class TransactionReportComponent implements OnInit {
 
   exportCsv(){
     var options={
-      headers: ["Date", "Order ID", "Product Name","SKU ID","Binding Type","Selling Price","Shipping Price","Total Values","Shipping Status"]
-    }
-    new Angular5Csv(this.books, 'My Report', options);
+      headers: ["Date", "Order ID","Shipping Status", "Product Name","SKU ID","Binding Type","Selling Price","Shipping Price","Total Values"]
+    };
+
+    let books=this.books.map(a=>{
+      delete a.book_id;
+      delete a.buyer;
+      return a;
+    });
+
+    console.log(books);
+
+    new Angular5Csv(books, 'My Report', options);
   }
 
   rangeChanged(event){

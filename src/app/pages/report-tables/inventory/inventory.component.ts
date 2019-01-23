@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ImageComponent } from './image/image.component';
 import { BookService } from '../../../services/book.service';
-import { LocalDataSource } from 'ng2-smart-table';
+import { LocalDataSource, Cell } from 'ng2-smart-table';
 
 @Component({
   selector: 'ngx-inventory',
@@ -27,7 +27,10 @@ export class InventoryComponent implements OnInit {
       },
       sku:{
         title:"SKU ID",
-        type:"text"
+        type:"html",
+        valuePrepareFunction:(cell, row)=>{
+          return `<a href=\'/#/pages/books/manage-books;id=${row.id}\' target="_blank">${cell}</a>`;
+        }
       },
       product:{
         title:"Product, Name, Language, Publication, Author",
@@ -80,7 +83,8 @@ export class InventoryComponent implements OnInit {
             "<li>Regular delivery: ₹"+book.shipping_cost.regular+"</li>"+
             "<li>Expedite delivery: ₹"+book.shipping_cost.fast_delivery+"</li>"+
             "</ul>",
-            status:book.stock>0 ? book.is_active : "Out of stock"
+            status:book.stock>0 ? book.is_active : "Out of stock",
+            id:book.id
           }
           data.push(d);
         });

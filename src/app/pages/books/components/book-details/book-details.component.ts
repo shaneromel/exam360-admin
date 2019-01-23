@@ -164,6 +164,7 @@ export class BookDetailsComponent implements OnInit {
         this.weight=this.book.weight;
         this.purchasingPrice=this.book.purchasing_price;
         this.code=this.book.code;
+        this.description=this.book.description;
       })
     }
   }

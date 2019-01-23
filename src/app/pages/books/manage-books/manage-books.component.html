@@ -1,5 +1,6 @@
 <nb-card>
-  <nb-card-header>Manage Books</nb-card-header>
+  <nb-card-header>Manage Books <button *ngIf="isSelected" (click)="isSelected=false;" style="float:right; cursor: pointer;" class="btn"><i class="fa fa-times" aria-hidden="true"></i>
+  </button></nb-card-header>
   <nb-card-body>
     <ngx-book-details *ngIf="isSelected" [book]="book" ></ngx-book-details>
     <nb-tabset>
