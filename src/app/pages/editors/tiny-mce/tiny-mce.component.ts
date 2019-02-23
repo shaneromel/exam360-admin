@@ -37,12 +37,6 @@ export class TinyMCEComponent {
         renderComponent:OrderIdComponent,
         editable:false
       },
-      images:{
-        title:"Images",
-        type:"custom",
-        renderComponent:ImagesComponent,
-        editable:false
-      },
       details:{
         title:"Product Details",
         type:"custom",
@@ -51,8 +45,11 @@ export class TinyMCEComponent {
       },
       total: {
         title: 'Shipment(₹)',
-        type: 'text',
-        editable:false
+        type: 'html',
+        editable:false,
+        valuePrepareFunction:(cell, row)=>{
+          return `Grand Total: ${cell}`
+        }
       },
       date: {
         title: 'Date(DD/MM/YYYY)',
@@ -88,22 +85,33 @@ export class TinyMCEComponent {
     columns: {
       id: {
         title: 'Order ID',
-        type: 'html',
+        type: 'custom',
+        renderComponent:OrderIdComponent,
         editable:false
       },
-      user_uid: {
-        title: 'User UID',
-        type: 'string',
+      details:{
+        title:"Product Details",
+        type:"custom",
+        renderComponent:ProductDetailsComponent,
         editable:false
       },
       total: {
-        title: 'Total(₹)',
-        type: 'number',
-        editable:false
+        title: 'Shipment(₹)',
+        type: 'html',
+        editable:false,
+        valuePrepareFunction:(cell, row)=>{
+          return `Grand Total: ${cell}`
+        }
       },
       date: {
         title: 'Date(DD/MM/YYYY)',
         type: 'string',
+        editable:false
+      },
+      button:{
+        title:"View",
+        type:'custom',
+        renderComponent:ViewButtonComponent,
         editable:false
       },
       refunded:{
@@ -119,7 +127,10 @@ export class TinyMCEComponent {
       }
     },
     actions:{
-      add:false
+      add:false,
+      edit:false,
+      delete:false,
+      position: 'right'
     }
   };
 
@@ -183,6 +194,7 @@ export class TinyMCEComponent {
         }
         var date=new Date(a.timestamp);
         a.date=date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
+        a.total=a.subTotal+"+"+a.shippingRate
         return a;
       })
 

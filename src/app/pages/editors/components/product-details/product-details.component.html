@@ -1,4 +1,20 @@
 <ng-container *ngFor="let item of rowData.cart">
-  <h4>{{item.book.title}}</h4>
-  <p>{{item.book.author}}, {{item.book.publication}}, {{item.book.languages.toString()}}, {{item.typeName}}</p>
+  <!-- <h4>{{item.book.title}}</h4>
+  <p>{{item.book.author}}, {{item.book.publication}}, {{item.book.languages.toString()}}, {{item.typeName}}</p> -->
+
+  <div class="row">
+    <div class="col-md-2">
+      <img class="img-fluid" [src]="item.book.image">
+    </div>
+    <div class="col-md-9">
+      <h5>{{item.book.title}}</h5>
+      <ul>
+        <li>ISBN: {{item.book.isbn}}</li>
+        <li>SKU: {{item.book.sku}}</li>
+        <li>Quantity shipped: {{item.quantity}}</li>
+        <li>Item Subtotal: {{item.book.price_offer*item.quantity}}</li>
+      </ul>
+    </div>
+  </div>
+  <hr>
 </ng-container>

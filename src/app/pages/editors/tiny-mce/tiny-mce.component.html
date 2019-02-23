@@ -9,12 +9,12 @@
                 </nb-tab>
 
                 <nb-tab tabTitle="Shipped">
-                        <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="deleteOrder($event)" (editConfirm)="editOrder($event)" (userRowSelect)="orderSelected($event)" >
+                        <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="deleteOrder($event)" (editConfirm)="editOrder($event)" >
                             </ng2-smart-table>
                 </nb-tab>
 
                 <nb-tab tabTitle="Canceled">
-                    <ng2-smart-table [settings]="canceledSettings"  [source]="canceledSource" (deleteConfirm)="deleteOrder($event)" (editConfirm)="editOrder($event)" (userRowSelect)="orderSelected($event)" >
+                    <ng2-smart-table [settings]="canceledSettings"  [source]="canceledSource" (deleteConfirm)="deleteOrder($event)" (editConfirm)="editOrder($event)" >
                     </ng2-smart-table>
                 </nb-tab>
                 
