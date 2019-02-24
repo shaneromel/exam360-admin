@@ -4,6 +4,24 @@
         <nb-tabset>
 
                 <nb-tab tabTitle="Unshipped">
+                        <div style="margin-top:10px;" class="form-group col-md-6">
+                            <!-- <input #search class="search" class="form-control" type="text" placeholder="Search..." (keydown.enter)="onSearch(search.value)"> -->
+                            <label>Search by: </label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{searchBy}}</button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Order ID</a>
+                                        <a class="dropdown-item" href="#">Buyer E-Mail</a>
+                                        <a class="dropdown-item" href="#">SKU ID</a>
+                                        <a class="dropdown-item" href="#">Product Name </a>
+                                        <a class="dropdown-item" href="#">Tracking ID</a>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" aria-label="Text input with dropdown button">
+                            </div>
+
+                        </div>
                         <ng2-smart-table [settings]="settings" [source]="unshippedSource" (deleteConfirm)="deleteOrder($event)" (editConfirm)="editOrder($event)" >
                             </ng2-smart-table>
                 </nb-tab>

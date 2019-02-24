@@ -19,6 +19,8 @@ declare var $:any;
 })
 export class TinyMCEComponent {
 
+  searchBy:string;
+
   settings={
     edit: {
       editButtonContent: '<i class="nb-edit"></i>',
@@ -41,7 +43,8 @@ export class TinyMCEComponent {
         title:"Product Details",
         type:"custom",
         renderComponent:ProductDetailsComponent,
-        editable:false
+        editable:false,
+        filter:false
       },
       total: {
         title: 'Shipment(₹)',
@@ -49,18 +52,21 @@ export class TinyMCEComponent {
         editable:false,
         valuePrepareFunction:(cell, row)=>{
           return `Grand Total: ${cell}`
-        }
+        },
+        filter:false
       },
       date: {
         title: 'Date(DD/MM/YYYY)',
         type: 'string',
-        editable:false
+        editable:false,
+        filter:false
       },
       button:{
         title:"View",
         type:'custom',
         renderComponent:ViewButtonComponent,
-        editable:false
+        editable:false,
+        filter:false
       }
     },
     actions:{
@@ -93,7 +99,8 @@ export class TinyMCEComponent {
         title:"Product Details",
         type:"custom",
         renderComponent:ProductDetailsComponent,
-        editable:false
+        editable:false,
+        filter:false
       },
       total: {
         title: 'Shipment(₹)',
@@ -101,18 +108,21 @@ export class TinyMCEComponent {
         editable:false,
         valuePrepareFunction:(cell, row)=>{
           return `Grand Total: ${cell}`
-        }
+        },
+        filter:false
       },
       date: {
         title: 'Date(DD/MM/YYYY)',
         type: 'string',
-        editable:false
+        editable:false,
+        filter:false
       },
       button:{
         title:"View",
         type:'custom',
         renderComponent:ViewButtonComponent,
-        editable:false
+        editable:false,
+        filter:false
       },
       refunded:{
         title:"Refunded",
@@ -123,7 +133,8 @@ export class TinyMCEComponent {
             true:"Yes",
             false:"No"
           }
-        }
+        },
+        filter:false
       }
     },
     actions:{
@@ -146,7 +157,7 @@ export class TinyMCEComponent {
 
   constructor(@Inject(WINDOW) private window: Window, private orderService:OrderService, private toaster:ToastrService, private sharedService:SharedService, private userService:UserService, private rout:ActivatedRoute){
     this.isSelected=false;
-    
+    this.searchBy="Order ID";
   }
 
   route(event){
@@ -196,7 +207,9 @@ export class TinyMCEComponent {
         a.date=date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
         a.total=a.subTotal+"+"+a.shippingRate
         return a;
-      })
+      });
+
+      console.log(this.unshippedOrders);
 
       this.unshippedSource.load(this.unshippedOrders);
       this.source.load(this.shippedOrders);
@@ -227,6 +240,10 @@ export class TinyMCEComponent {
         this.toaster.error(err.message);
       })
     }
+  }
+
+  onSearch(search){
+    console.log(search);
   }
 
 }
